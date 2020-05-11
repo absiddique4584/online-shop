@@ -51,7 +51,6 @@ class ProductController extends Controller
         try {
             $image = $request->file('thumbnail');
             $fileEx = $image->getClientOriginalExtension();
-            dd($fileEx);
             $fileName = date('Ymdhis.') . $fileEx;
             $image->move(public_path('uploads/product/'), $fileName);
 
@@ -163,11 +162,16 @@ class ProductController extends Controller
      */
     public function delete($id)
     {
-        $id = base64_decode($id);
-        $products = Product::find($id);
-        unlink(public_path('uploads/product/') . $products->image);
-        $products->delete();
-        setMessage('success', 'Product has been successfully deleted!');
+        try {
+            $id = base64_decode($id);
+            $products = Product::find($id);
+            unlink(public_path('uploads/product/') . $products->image);
+            $products->delete();
+            setMessage('success', 'Product has been successfully deleted!');
+        }catch (Exception $exception){
+            setMessage('warning', "Oops! Something Wrong,Can't Delete!");
+        }
+
         return redirect()->back();
     }
 }
