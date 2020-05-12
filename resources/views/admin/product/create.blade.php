@@ -28,7 +28,7 @@
                         </div>
                     </div>
                     <hr style="margin-top: 0">
-                    <form class="form-horizontal" method="POST" action="{{ route('sliders.store') }}" enctype="multipart/form-data">
+                    <form class="form-horizontal" method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
                         @csrf
 
                         <!------NAME ------->
@@ -111,6 +111,7 @@
                                 <button type="submit" class="btn btn-primary">Add Product</button>
                             </div>
                         </div>
+
                     </form>
 
                 </div>

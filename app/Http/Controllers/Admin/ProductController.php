@@ -41,9 +41,6 @@ class ProductController extends Controller
             'model'         => 'required',
             'buying_price'  => 'required',
             'selling_price' => 'required',
-            'special_price' => 'required',
-            'special_start' => 'required',
-            'special_end'   => 'required',
             'quantity'      => 'required',
             'thumbnail'     => 'required',
         ]);
@@ -66,6 +63,7 @@ class ProductController extends Controller
                 'thumbnail' => $fileName,
 
             ]);
+
         } catch (Exception $exception) {
             $product = false;
         }
@@ -115,7 +113,7 @@ class ProductController extends Controller
 
         $success = null;
         try {
-            $image = $request->file('image');
+            $image = $request->file('thumbnail');
             $fileEx = $image->getClientOriginalExtension();
             $fileName = date('Ymdhis.') . $fileEx;
             $image->move(public_path('uploads/product/'), $fileName);

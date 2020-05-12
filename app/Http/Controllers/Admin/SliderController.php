@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 use Exception;
+use Image;
 class SliderController extends Controller
 {
 
@@ -41,8 +42,8 @@ class SliderController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title'     => 'required|min:5|max:20',
-            'sub_title' => 'required|min:5|max:20',
+            'title'     => 'required',
+            'sub_title' => 'required',
             'image'     => 'required',
             'url'       => 'required',
             'start'     => 'required',
@@ -53,7 +54,10 @@ class SliderController extends Controller
             $image    = $request->file('image');
             $fileEx   = $image->getClientOriginalExtension();
             $fileName = date('Ymdhis.') . $fileEx;
-            $image->move(public_path('uploads/slider/'), $fileName);
+            Image::make($image)
+                ->resize(500,250)
+                ->save(public_path('uploads/slider/').$fileName);
+            //$image->move(public_path('uploads/slider/'), $fileName);
 
             $slider = Slider::create([
                 'title'     => $request->title,
@@ -100,8 +104,8 @@ class SliderController extends Controller
         $slider = Slider::find($id);
 
         $request->validate([
-            'title'     => 'required|min:5|max:20',
-            'sub_title' => 'required|min:5|max:20',
+            'title'     => 'required',
+            'sub_title' => 'required',
             'image'     => 'required',
             'url'       => 'required',
             'start'     => 'required',
@@ -113,7 +117,10 @@ class SliderController extends Controller
             $image    = $request->file('image');
             $fileEx   = $image->getClientOriginalExtension();
             $fileName = date('Ymdhis.') . $fileEx;
-            $image->move(public_path('uploads/slider/'), $fileName);
+            Image::make($image)
+                ->resize(500,250)
+                ->save(public_path('uploads/slider/').$fileName);
+            //$image->move(public_path('uploads/slider/'), $fileName);
 
             $success = $slider->update([
                 'title'     => $request->title,
@@ -158,11 +165,16 @@ class SliderController extends Controller
      */
     public function delete($id)
     {
-        $id     = base64_decode($id);
-        $slider = Slider::find($id);
-        unlink(public_path('uploads/slider/') . $slider->image);
-        $slider->delete();
-        setMessage('success', 'Slider has been successfully deleted!');
+        try {
+            $id     = base64_decode($id);
+            $slider = Slider::find($id);
+            unlink(public_path('uploads/slider/') . $slider->image);
+            $slider->delete();
+            setMessage('success', 'Slider has been successfully deleted!');
+        }catch (Exception $exception){
+            setMessage('warning', 'Oops! Unable to delete slider.');
+        }
+
         return redirect()->back();
     }
 }
