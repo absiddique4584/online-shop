@@ -63,7 +63,7 @@
                         <div class="form-group">
                             <label for="image" class="col-sm-3 control-label">Image</label>
                             <div class="col-sm-9">
-                                <input type="file" class="form-control" id="image" name="image" required>
+                                <input type="file" class="form-control" id="image" name="image"  required>
                             </div>
                         </div>
 

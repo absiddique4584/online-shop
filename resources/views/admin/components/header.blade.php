@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
     <link rel="icon" href="{{ asset('assets/admin/favicon/apple-icon-120x120.png') }}">
     <!--load progress bar-->
@@ -16,6 +17,10 @@
     <link rel="stylesheet" href="{{ asset('assets/admin/vendor/font-awesome/css/font-awesome.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/vendor/animate.css/animate.css') }}">
 
+    <!--Date picker-->
+    <link rel="stylesheet" href="{{ asset('assets/admin/vendor/bootstrap_date-picker/css/bootstrap-datepicker3.min.css')}}">
+    <!--summernote-->
+    <link href="{{asset('assets/admin/summernote/dist/summernote.css')}}" rel="stylesheet">
     <!--dataTable-->
     <link rel="stylesheet" href="{{ asset('assets/admin/vendor/data-table/media/css/dataTables.bootstrap.min.css')}}">
 
@@ -29,7 +34,7 @@
     <!--TEMPLATE css-->
     <!-- ========================================================= -->
     <link rel="stylesheet" href="{{ asset('assets/admin/stylesheets/css/style.css') }}">
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/admin/vendor/bootstrap/css/bootstrap.toggle.min.css') }}">
 
 </head>
 
@@ -93,10 +98,11 @@
         <div class="left-sidebar">
             <!-- left sidebar HEADER -->
             <div class="left-sidebar-header">
-                <div " class="left-sidebar-title">Navigation</div>
+                <div  class="left-sidebar-title">Navigation</div>
                 <div class="left-sidebar-toggle c-hamburger c-hamburger--htla hidden-xs" data-toggle-class="left-sidebar-collapsed" data-target="html">
                     <span></span>
                 </div>
+
             </div>
             <!-- NAVIGATION -->
             <!-- ========================================================= -->
@@ -149,4 +155,4 @@
             </div>
         </div>
     </div>
-</div>
+

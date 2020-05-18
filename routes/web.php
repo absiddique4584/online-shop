@@ -74,6 +74,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/edit/{id}', 'Admin\ProductController@edit')->name('edit');
         Route::post('/update/{id}', 'Admin\ProductController@update')->name('update');
         Route::get('/delete/{id}', 'Admin\ProductController@delete')->name('delete');
+        Route::get('/find-categories/{id}', 'Admin\ProductController@findCategories');
+        Route::get('/updateBuyingPrice/{id}/{p}', 'Admin\ProductController@updateBuyingPrice');
+        Route::post('/update-selling-Price', 'Admin\ProductController@updateSellingPrice');
+        Route::post('/update-special-Price', 'Admin\ProductController@updateSpecialPrice');
         Route::get('/update-status/{id}/{status}', 'Admin\ProductController@updateStatus')->name('update.status');
     });
 

@@ -31,6 +31,8 @@
                     <form class="form-horizontal" method="POST" action="{{ route('sub.category.update') }}">
                         @csrf
                         @method('put')
+
+
                         <input type="hidden" name="id" value="{{ $subCat->id }}">
                         <div class="form-group">
                             <label for="category_id" class="col-sm-3 control-label">Category</label>
@@ -43,6 +45,7 @@
                                 </select>
                             </div>
                         </div>
+
                         <div class="form-group">
                             <label for="name" class="col-sm-3 control-label">Sub Category</label>
                             <div class="col-sm-9">

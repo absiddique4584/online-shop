@@ -1,7 +1,32 @@
 
-$(function () {
+function previewImage(input){
+		var id = $(input).attr('data-id');
+		if(input.files && input.files[0]){
+			var reader = new FileReader();
+			reader.onload = function(e){
+				$("#preview_"+id).attr('src',e.target.result);
+					$("#preview_"+id).parent().attr('href',e.target.result);
+			};
+			reader.readAsDataURL(input.files[0]);
+		}
+}
 
+
+$(function () {
     "use strict";
+
+/*Data Table*/
+    $('.data-table').DataTable({});
+
+    //Default datepicker example
+    $('.datepicker').datepicker({
+    format: "yyyy/mm/dd",
+        weekStart: 1,
+        todayBtn: "linked",
+        todayHighlight: true
+});
+
+    $('.summernote').summernote();
 
     //TOASTR NOTIFICATION
     // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -127,6 +152,10 @@ $(function () {
 });
 
 
+
+
+
+
 $('body').on('change', "#brandStatus", function () {
     var id = $(this).attr('data-id');
     if (this.checked) {
@@ -144,6 +173,11 @@ $('body').on('change', "#brandStatus", function () {
     });
 
 });
+
+
+
+
+
 
 $('body').on('change', "#categoryStatus", function () {
     var id = $(this).attr('data-id');
@@ -163,6 +197,16 @@ $('body').on('change', "#categoryStatus", function () {
 
 });
 
+
+
+
+
+/**
+ *
+ * @type {string}
+ */
+const site_url = "http://localhost/ecommerce-shop/";
+
 $('body').on('change', "#subCategoryStatus", function () {
     var id = $(this).attr('data-id');
     if (this.checked) {
@@ -180,6 +224,13 @@ $('body').on('change', "#subCategoryStatus", function () {
     });
 });
 
+
+
+
+
+/**
+ * sliderStatus
+ */
 $('body').on('change', "#sliderStatus", function () {
     var id = $(this).attr('data-id');
     if (this.checked) {
@@ -198,6 +249,12 @@ $('body').on('change', "#sliderStatus", function () {
 });
 
 
+
+
+/**
+ * productStatus
+ */
+
 $('body').on('change', "#productStatus", function () {
     var id = $(this).attr('data-id');
     if (this.checked) {
@@ -213,5 +270,150 @@ $('body').on('change', "#productStatus", function () {
             $('.loader__').hide();
         }
     });
+});
+
+
+
+
+
+/*
+warranty show hide
+ */
+
+$('body').on('change', 'input[name="warranty"]', function () {
+    var n = $(this).val();
+
+  if (n==1){
+     $('.warranty_box').slideDown();
+  }else {
+      $('.warranty_box').slideUp();
+  }
 
 });
+
+
+
+
+
+/*
+sub category filtering
+ */
+
+$('body').on('change', "#cat_id", function () {
+    var id = $(this).val();
+
+    if (id !== ''){
+
+
+    $.ajax({
+        url: site_url+"products/find-categories/" + id,
+        method: 'get',
+        success: function (result) {
+            $('#subcat_id').html(result);
+
+        }
+    });
+
+    }
+});
+
+
+
+
+
+
+/*
+input field
+ */
+
+$('body').on('change', ".buying_price", function () {
+    var price = $(this).val();
+    var id = $(this).attr('data-id');
+
+    $('.loader__').show();
+        $.ajax({
+            url: site_url+"products/updateBuyingPrice/" + id + '/' +price,
+            method: 'get',
+            success: function (result) {
+
+                $('.loader__').hide();
+            }
+        });
+});
+
+
+
+
+
+
+/*
+selling_price
+ */
+
+$('body').on('change', ".selling_price", function () {
+    var price = $(this).val();
+    var id = $(this).attr('data-id');
+
+    $('.loader__').show();
+    $.ajax({
+        data:{ id: id, price: price },
+        url: site_url + "products/update-selling-Price" ,
+        method: 'post',
+        beforeSend: function (request) {
+            return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
+        },
+        success: function (result) {
+            $('.loader__').hide();
+        }
+    });
+});
+
+
+
+
+
+/*
+special_price
+ */
+
+$('body').on('change', ".special_price", function () {
+    var price = $(this).val();
+    var id = $(this).attr('data-id');
+
+    $('.loader__').show();
+    $.ajax({
+        data:{ id: id, price: price },
+        url: site_url + "products/update-special-Price" ,
+        method: 'post',
+        beforeSend: function (request) {
+            return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
+        },
+        success: function (result) {
+            $('.loader__').hide();
+        }
+    });
+});
+
+
+
+
+
+
+
+/**
+ * fileClick
+ */
+$('body').on('click', ".fileClick", function () {
+
+	var id = $(this).attr('data-id');
+	$('#' + id).click();
+});
+
+
+
+
+
+
+
+
+

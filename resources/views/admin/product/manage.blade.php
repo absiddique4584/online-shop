@@ -33,6 +33,7 @@
                             <thead>
                             <tr>
                                 <th>Sl No</th>
+                                <th>Thumbnail</th>
                                 <th>Name</th>
                                 <th>Model</th>
                                 <th>Buying Price</th>
@@ -40,7 +41,6 @@
                                 <th>Special Price</th>
                                 <th>Special Price Date </th>
                                 <th>Quantity</th>
-                                <th>Thumbnail</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -49,14 +49,14 @@
                             @foreach($products as $product)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
+                                    <td><img style="width: 50px; height: 40px;" src="{{ asset('uploads/product/'.$product->thumbnail) }}" alt=""></td>
                                     <td>{{ substr( $product->name,0,18)  }}</td>
                                     <td>{{ $product->model }}</td>
-                                    <td><input type="text" value="{{ $product->buying_price }}"></td>
-                                    <td>{{ $product->selling_price }}</td>
-                                    <td>{{ $product->special_price }}</td>
+                                    <td><input class="form-control buying_price" data-id ="{{ $product->id }}" type="text" value="{{ $product->buying_price }}"></td>
+                                    <td><input class="form-control selling_price" data-id ="{{ $product->id }}" type="text" value="{{ $product->selling_price }}"></td>
+                                    <td><input class="form-control special_price" data-id ="{{ $product->id }}" type="text" value="{{ $product->special_price }}"></td>
                                     <td>{{ $product->special_start .' - '. $product->special_end }}</td>
                                     <td>{{ $product->quantity }}</td>
-                                    <td><img style="width: 30px; height: 40px;" src="{{ $product->thumbnail }}" alt=""></td>
                                     <td>
                                         <input type="checkbox" {{ $product->status === 'active' ? 'checked':'' }} id="productStatus" data-id="{{ $product->id }}" data-toggle="toggle" data-on="Active" data-off="Inactive"
                                                data-size="mini">

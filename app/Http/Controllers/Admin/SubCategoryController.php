@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 
 class SubCategoryController extends Controller
 {
+
+
+
+
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -19,6 +23,10 @@ class SubCategoryController extends Controller
         return view('admin.sub-category.manage', compact('categories'));
     }
 
+
+
+
+
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -27,6 +35,10 @@ class SubCategoryController extends Controller
         $categories = Category::orderBy('name', 'ASC')->get();
         return view('admin.sub-category.create', compact('categories'));
     }
+
+
+
+
 
     /**
      * @param Request $request
@@ -59,6 +71,10 @@ class SubCategoryController extends Controller
     }
 
 
+
+
+
+
     /**
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -73,6 +89,13 @@ class SubCategoryController extends Controller
         return view('admin.sub-category.edit', compact('subCat', 'categories'));
     }
 
+
+
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request)
     {
         $id = $request->id;
@@ -104,6 +127,11 @@ class SubCategoryController extends Controller
         return redirect()->back();
     }
 
+
+
+
+
+
     /**
      * @param $id
      * @param $status
@@ -114,6 +142,11 @@ class SubCategoryController extends Controller
         $category->status = $status;
         $category->save();
     }
+
+
+
+
+
 
 
     /**

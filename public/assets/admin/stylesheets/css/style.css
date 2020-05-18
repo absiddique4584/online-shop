@@ -2,8 +2,8 @@
 [Master Stylesheet]
 
 Project:    HELSINKI
-Version:    1.0 
-author:     myii-developer 
+Version:    1.0
+author:     myii-developer
 
 [Table of contents]
 
@@ -17,7 +17,7 @@ author:     myii-developer
             4. content
                 5. content-header
             4. right-sidebar
-            
+
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
 html,
 body {
@@ -233,7 +233,7 @@ html.right-sidebar-opened .right-sidebar {
   html.fixed.left-sidebar-collapsed .content .content-header {
     left: 60px;
   }
-  /* 
+  /*
     Fixed & left-sidebar-scroll
     left-sidebar collapse & left-sidebar-over & left-sidebar-top
     */
@@ -5471,5 +5471,11 @@ html.left-sidebar-top .c-hamburger span {
 .pagination > li > span:focus {
   color: #126f5c;
 }
+.form-control.selling_price,
+.form-control.special_price,
+.form-control.buying_price {
+    width: 90px !important;
+}
+
 
 /*# sourceMappingURL=style.css.map */
