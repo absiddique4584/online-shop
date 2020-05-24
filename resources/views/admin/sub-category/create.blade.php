@@ -24,7 +24,7 @@
                             <h3>Add Category</h3>
                         </div>
                         <div class="col-sm-6">
-                            <a href="{{ route('sub.category.manage') }}" class="btn btn-primary pull-right">Manage</a>
+                            <a href="{{ route('sub.category.manage') }}" class="btn btn-primary pull-right">Manage SubCateory</a>
                         </div>
                     </div>
                     <hr style="margin-top: 0">
@@ -33,7 +33,7 @@
                         <div class="form-group">
                             <label for="category_id" class="col-sm-3 control-label">Category</label>
                             <div class="col-sm-9">
-                                <select class="form-control" name="category" id="category_id">
+                                <select class="form-control " name="category" id="category_id">
                                     <option value="">Select Category</option>
                                     @foreach($categories as $row)
                                         <option value="{{ $row->id }}">{{ $row->name }}</option>
@@ -44,14 +44,14 @@
                         <div class="form-group">
                             <label for="name" class="col-sm-3 control-label">Sub Category</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required placeholder="Category Name">
+                                <input type="text" class="form-control " id="name" name="name" value="{{ old('name') }}" required placeholder="SubCategory Name">
                             </div>
                         </div>
 
                         <div class="row form-group">
                             <div class="col-sm-3"></div>
                             <div class="col-sm-9">
-                                <button type="submit" class="btn btn-primary">Add Category</button>
+                                <button type="submit" class="btn btn-primary">Add SubCategory</button>
                             </div>
                         </div>
                     </form>

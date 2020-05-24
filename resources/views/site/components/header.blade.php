@@ -111,7 +111,7 @@
                                     <div class="row">
                                         <div class="col-xs-4">
                                             <div class="image">
-                                                <a href="detail.html"><img src="{{ asset('assets/site/images/cart.jpg') }}" alt=""></a>
+                                                <a href="#"><img src="{{ asset('assets/site/images/cart.jpg') }}" alt=""></a>
                                             </div>
                                         </div>
                                         <div class="col-xs-7">
@@ -168,26 +168,19 @@
                         <div class="nav-outer">
 
                             <ul class="nav navbar-nav">
+
                                 @foreach($brands as $row)
-                                <li class="dropdown yamm mega-menu">
-                                    <a href="home.html" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">{{ $row->brand_name }}</a>
-                                    <ul class="dropdown-menu container">
-                                        <li>
-                                            <div class="yamm-content ">
-                                                <div class="row">
-                                                    <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
-                                                        <h2 class="title">Men</h2>
-                                                        <ul class="links">
-                                                            <li><a href="#">Dresses</a></li>
-                                                        </ul>
-                                                    </div><!-- /.col -->
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                <li class="dropdown ">
+                                    <a href="{{route('index')}}" >{{$row->brand_name}}</a>
+                                </li>
+                                @endforeach
+
+                                <li class="dropdown navbar-right special-menu" >
+                                    <a href="#" >Todays Offer</a>
+
                                 </li>
 
-                                @endforeach
+
                             </ul><!-- /.navbar-nav -->
 
                             <div class="clearfix"></div>

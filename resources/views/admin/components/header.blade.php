@@ -19,6 +19,8 @@
 
     <!--Date picker-->
     <link rel="stylesheet" href="{{ asset('assets/admin/vendor/bootstrap_date-picker/css/bootstrap-datepicker3.min.css')}}">
+    <!--Select picker-->
+    <link rel="stylesheet" href="{{ asset('assets/admin/vendor/bootstrap-select/dist/css/bootstrap-select.min.css')}}">
     <!--summernote-->
     <link href="{{asset('assets/admin/summernote/dist/summernote.css')}}" rel="stylesheet">
     <!--dataTable-->
@@ -62,19 +64,18 @@
             <div class="header-section" id="user-headerbox">
                 <div class="user-header-wrap">
                     <div class="user-photo">
-                        <img alt="profile photo" src="{{ asset('assets/admin/images/avatar/avatar_user.jpg')}}"/>
+                        <img alt="profile photo" src="{{ asset('uploads/profile/hero.jpg')}}"/>
                     </div>
                     <div class="user-info">
                         <span class="user-name">{{ auth()->user()->name }}</span>
                         <span class="user-profile">{{ auth()->user()->is_admin === 1 ? 'Admin':'Super Admin' }}</span>
                     </div>
                     <i class="fa fa-plus icon-open" aria-hidden="true"></i>
-                    <i class="fa fa-minus icon-close" aria-hidden="true"></i>
                 </div>
                 <div class="user-options dropdown-box">
                     <div class="drop-content basic">
-                        <ul style="color: hotpink;">
-                            <li ><a  href="#"><i  class="fa fa-user" aria-hidden="true"></i> Profile</a></li>
+                        <ul >
+                            <li ><a  href="{{route('profiles.manage')}}"><i  class="fa fa-user" aria-hidden="true"></i> Profile</a></li>
                         </ul>
                     </div>
                 </div>

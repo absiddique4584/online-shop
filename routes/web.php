@@ -4,12 +4,25 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', 'Site\SiteController@index')->name('index');
+Route::get('/category/{slug}', 'Site\SiteController@category')->name('category');
 
 Auth::routes();
 
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', 'Admin\DashboardController@index')->name('home');
+
+    /**
+     * PROFILE Route
+     */
+    Route::prefix('profiles')->name('profiles.')->group(function () {
+        Route::get('/', 'Admin\ProfileController@index')->name('manage');
+        Route::post('/store', 'Admin\ProfileController@store')->name('store');
+        Route::get('/edit/{id}', 'Admin\ProfileController@edit')->name('edit');
+        Route::post('/update/{id}', 'Admin\ProfileController@update')->name('update');
+        Route::get('/delete/{id}', 'Admin\ProfileController@delete')->name('delete');
+
+    });
 
     /**
      * BRANDS Route
@@ -22,7 +35,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('/update/{id}', 'Admin\BrandController@update')->name('update');
         Route::get('/delete/{id}', 'Admin\BrandController@delete')->name('delete');
         Route::get('/update-status/{id}/{status}', 'Admin\BrandController@updateStatus')->name('update.status');
+        Route::get('/update-top-brand/{id}/{top_brand}', 'Admin\BrandController@updatetopBrand');
     });
+
+
 
     /**
      * CATEGORIES Route
@@ -37,6 +53,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/update-status/{id}/{status}', 'Admin\CategoryController@updateStatus')->name('update.status');
     });
 
+
+
     /**
      * SUB CATEGORIES Route
      */
@@ -49,6 +67,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/delete/{id}', 'Admin\SubCategoryController@delete')->name('delete');
         Route::get('/update-status/{id}/{status}', 'Admin\SubCategoryController@updateStatus')->name('update.status');
     });
+
+
 
     /**
      * SLIDERS Route
@@ -80,6 +100,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/update-special-Price', 'Admin\ProductController@updateSpecialPrice');
         Route::get('/update-status/{id}/{status}', 'Admin\ProductController@updateStatus')->name('update.status');
     });
+
+
 
 });
 

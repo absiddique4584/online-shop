@@ -36,7 +36,7 @@
                             <!------Category ------->
                             <div class="col-sm-6">
                                 <label for="cat_id" class="control-label">Category</label>
-                                <select name="cat_id" id="cat_id" class="form-control">
+                                <select name="cat_id" id="cat_id" class="form-control ">
                                     <option value="">Select Category</option>
                                     @foreach($categories as $row)
                                     <option value="{{$row->id}}">{{ $row->name }}</option>
@@ -48,7 +48,7 @@
                             <!------SubCategory ------->
                             <div class="col-sm-6">
                                 <label for="subcat_id" class="control-label">SubCategory</label>
-                                <select name="subcat_id" id="subcat_id" class="form-control">
+                                <select name="subcat_id" id="subcat_id" class="form-control ">
                                     <option value="">Select SubCategory</option>
                                 </select>
                             </div>
@@ -57,7 +57,7 @@
                             <!------Brand ------->
                             <div class="col-sm-6">
                                 <label for="brand_id" class="control-label">Brand</label>
-                                <select name="brand_id" id="brand_id" class="form-control">
+                                <select name="brand_id" id="brand_id" class="form-control ">
                                     <option value="">Select Brand</option>
                                     <option value="0">No Brand</option>
                                     @foreach($brands as $brand)
@@ -133,7 +133,8 @@
                                 <input style="display:none;" type="file" class="" id="thumbnail" data-id="thumbnail" onChange="previewImage(this)" name="thumbnail" value="{{ old('thumbnail') }}" required placeholder="Thumbnail">
 								<input type="button" data-id="thumbnail" class="btn btn-info fileClick" value="Select Thumbnail"/>
 								 <a href=""class="image">
-								<img style="width:60px; height:60px;" src="" class="img-thumbnail" id="preview_thumbnail" alt=""/>
+								<img style=" height:100px;" src="" id="preview_thumbnail" alt=""/>
+                                 </a>
                             </div>
 
                             <!------------------>
@@ -142,7 +143,9 @@
                             <!------Gallery------->
                             <div class="col-sm-6">
                                 <label for="gallery" class=" control-label">Gallery</label>
-                                <input  type="file" class="" id="gallery" name="gallery[]" value="{{ old('gallery') }}" multiple >
+
+                                <input id="files" type="file" name="gallery[]" multiple data-id="gallary" />
+                                <div id="result" ></div>
                             </div>
                             <!------------------>
 

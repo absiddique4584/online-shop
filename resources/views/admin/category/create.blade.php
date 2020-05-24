@@ -24,7 +24,7 @@
                             <h3>Add New Category</h3>
                         </div>
                         <div class="col-sm-6">
-                            <a href="{{ route('categories.manage') }}" class="btn btn-primary pull-right">Manage</a>
+                            <a href="{{ route('categories.manage') }}" class="btn btn-primary pull-right">Manage Category</a>
                         </div>
                     </div>
                     <hr style="margin-top: 0">

@@ -41,7 +41,7 @@
                                 <input type="hidden" id="cat_id" value="{{$products->cat_id}}">
                                 <div class="col-sm-6">
                                     <label for="cat_id" class="control-label">Category</label>
-                                    <select name="cat_id" id="cat_id" class="form-control">
+                                    <select name="cat_id" id="cat_id" class="form-control selectpicker">
                                         <option value="">Select Category</option>
                                         @foreach($categories as $row)
                                             <option value="{{$row->id}}" {{$row->id==$products->cat_id ?'selected':''}}>{{ $row->name }}</option>
@@ -53,8 +53,8 @@
                                 <!------SubCategory ------->
                                 <input type="hidden" id="subcat_id" value="{{$products->subcat_id}}">
                                 <div class="col-sm-6">
-                                    <label for="subcat_id" class="control-label">SubCategory</label>
-                                    <select name="subcat_id" id="subcat_id" class="form-control">
+                                    <label for="subcat_id" class="control-label  ">SubCategory</label>
+                                    <select name="subcat_id" id="subcat_id" class="form-control selectpicker">
                                         <option value="">Select SubCategory</option>
                                         @foreach($subcategories as $row)
                                             <option value="{{$row->id}}" {{$row->id==$products->subcat_id ?'selected':''}}>{{ $row->name }}</option>
@@ -67,7 +67,7 @@
                                 <input type="hidden" id="brand_id" value="{{$products->brand_id}}">
                                 <div class="col-sm-6">
                                     <label for="brand_id" class="control-label">Brand</label>
-                                    <select name="brand_id" id="brand_id" class="form-control">
+                                    <select name="brand_id" id="brand_id" class="form-control selectpicker">
                                         <option value="">Select Brand</option>
                                         <option value="0">No Brand</option>
                                         @foreach($brands as $brand)

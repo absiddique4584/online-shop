@@ -37,7 +37,7 @@
                         <div class="form-group">
                             <label for="category_id" class="col-sm-3 control-label">Category</label>
                             <div class="col-sm-9">
-                                <select class="form-control" name="category" id="category_id">
+                                <select class="form-control selectpicker" name="category" id="category_id">
                                     <option value="">Select Category</option>
                                     @foreach($categories as $row)
                                         <option value="{{ $row->id }}" {{ $row->id == $subCat->category_id ? 'selected':'' }}>{{ $row->name }}</option>

@@ -19,19 +19,15 @@
 
 @foreach($categories as $row)
                         <li class="dropdown menu-item">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-shopping-bag" aria-hidden="true"></i>{{$row->name}}</a>
+                            <a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-shopping-bag" aria-hidden="true"></i>{{$row->name}}</a>
                             <ul class="dropdown-menu mega-menu">
                                 <li class="yamm-content">
                                     <div class="row">
-                                        @foreach($subcategories as $subcategory)
-                                        <div class="col-sm-12 col-md-3">
-                                            <ul class="links list-unstyled">
-                                                <li><a href="#">{{$subcategory->name}}</a></li>
-
-                                            </ul>
+                                        @foreach($row->sub_categories as $sub_categorie)
+                                        <div class="col-sm-4 col-md-3">
+                                            <a href="{{route('category', $sub_categorie->slug)}}">{{ $sub_categorie->name }}</a>
                                         </div><!-- /.col -->
                                         @endforeach
-
                                     </div><!-- /.row -->
                                 </li><!-- /.yamm-content -->
                             </ul><!-- /.dropdown-menu -->

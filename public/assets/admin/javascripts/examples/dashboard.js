@@ -12,10 +12,32 @@ function previewImage(input){
 }
 
 
+
+
+
+
+
+
+
+/**
+ * selectpicker,data-table,datepicker
+ */
+
 $(function () {
     "use strict";
 
-/*Data Table*/
+
+
+
+
+    /**
+     * Bootstrap select picker
+     */
+    $('.selectpicker').selectpicker();
+
+
+
+    /*Data Table*/
     $('.data-table').DataTable({});
 
     //Default datepicker example
@@ -28,107 +50,8 @@ $(function () {
 
     $('.summernote').summernote();
 
-    //TOASTR NOTIFICATION
-    // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    toastr.options = {
-    "progressBar": true,
-    "positionClass": "toast-bottom-right",
-    "timeOut": 3500,
-    "showEasing": "swing",
-    "hideEasing": "linear",
-    "showMethod": "slideDown",
-    "hideMethod": "fadeOut"
-    };
-
-    toastr.info('Enjoy it!', '<h5 style="margin-top: 0px; margin-bottom: 5px;"><b>This is Online Shop!</b></h5>');
-
-    //AREA CHART EXAMPLE
-    // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    var area = document.getElementById("area-chart");
-
-    var options ={
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        }
-    };
-    var dataArea = {
-        labels: ["January", "February", "March", "April", "May", "June"],
-        datasets: [
-            {
-                label: "Data 1",
-                fill: true,
-                backgroundColor: "rgba(55, 209, 119, 0.45)",
-                borderColor: "rgba(55, 209, 119, 0.45)",
-                pointBorderColor: "rgba(75,192,192,1)",
-                pointBackgroundColor: "#fff",
-                pointHoverBackgroundColor: "343d3e",
-                pointHoverBorderColor: "rgba(220,220,220,1)",
-                data: [12, 13, 11, 6, 9, 12]
-            },
-            {
-                label: "Data 2",
-                fill: true,
-                backgroundColor: "rgba(175, 175, 175, 0.26)",
-                borderColor: "rgba(175, 175, 175, 0.26)",
-                pointBorderColor: "rgba(75,192,192,1)",
-                pointBackgroundColor: "#fff",
-                pointHoverBackgroundColor: "#343d3e",
-                pointHoverBorderColor: "rgba(220,220,220,1)",
-                data: [14, 6, 9, 13, 12, 16],
-            }
-        ],
-        options: {
-            scales: {
-                yAxes: [{
-                    stacked: true
-                }]
-            }
-        }
-    };
-
-    var areaChart = new Chart(area, {
-        type: 'line',
-        data: dataArea,
-        options: options
-
-    });
-
-    //PIE  & POLAR CHART EXAMPLE
-    // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    var pie = document.getElementById("pie-chart");
-
-    var dataPie = {
-        labels: [
-            "Data 1",
-            "Data 2",
-            "Data 3"
-        ],
-        datasets: [
-            {
-                data: [300, 50, 100],
-                backgroundColor: [
-                    "rgba(55, 209, 119, 0.45)",
-                    "#FFCE56",
-                    "rgba(175, 175, 175, 0.26)"
-                ],
-                hoverBackgroundColor: [
-                    "rgba(55, 209, 119, 0.6)",
-                    "#FFCE56",
-                    "rgba(175, 175, 175, 0.4)"
-                ]
-            }]
-    };
 
 
-    var pieChar = new Chart(pie, {
-        type: 'pie',
-        data: dataPie
-
-    });
 
 
     //MAGNIFIC POPUP GALLERY
@@ -166,6 +89,28 @@ $('body').on('change', "#brandStatus", function () {
     $('.loader__').show();
     $.ajax({
         url: "brands/update-status/" + id + '/' + status,
+        method: 'get',
+        success: function (result) {
+            $('.loader__').hide();
+        }
+    });
+
+});
+
+/**
+ * Top Brand Status
+ */
+
+$('body').on('change', "#topbrandStatus", function () {
+    var id = $(this).attr('data-id');
+    if (this.checked) {
+        var top_brand = 1;
+    } else {
+        top_brand = 0;
+    }
+    $('.loader__').show();
+    $.ajax({
+        url: "brands/update-top-brand/" + id + '/' + top_brand,
         method: 'get',
         success: function (result) {
             $('.loader__').hide();
@@ -292,6 +237,22 @@ $('body').on('change', 'input[name="warranty"]', function () {
 });
 
 
+/*
+Profile Create Sectionm
+ */
+
+$('body').on('change', 'input[name="create"]', function () {
+    var n = $(this).val();
+
+    if (n==1){
+        $('.create_section').slideDown();
+    }else {
+        $('.create_section').slideUp();
+    }
+
+});
+
+
 
 
 
@@ -304,16 +265,16 @@ $('body').on('change', "#cat_id", function () {
 
     if (id !== ''){
 
-
+        $('.loader__').show();
     $.ajax({
         url: site_url+"products/find-categories/" + id,
         method: 'get',
         success: function (result) {
             $('#subcat_id').html(result);
 
+            $('.loader__').hide();
         }
     });
-
     }
 });
 
@@ -323,7 +284,7 @@ $('body').on('change', "#cat_id", function () {
 
 
 /*
-input field
+buying_price
  */
 
 $('body').on('change', ".buying_price", function () {
@@ -409,6 +370,42 @@ $('body').on('click', ".fileClick", function () {
 	$('#' + id).click();
 });
 
+
+
+
+
+/**
+ * multiple file
+ */
+
+function handleFileSelect(event) {
+    //Check File API support
+    if (window.File && window.FileList && window.FileReader) {
+
+        var files = event.target.files; //FileList object
+        var output = document.getElementById("result");
+
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            //Only pics
+            if (!file.type.match('image')) continue;
+
+            var picReader = new FileReader();
+            picReader.addEventListener("load", function (event) {
+                var picFile = event.target;
+                var div = document.createElement("div");
+                div.innerHTML = "<img style='width: 100px; height: 90px; border: 1px solid #FF0000; margin: 5px; float: left;' src='" + picFile.result + "'" + "title='" + file.name + "'/>";
+                output.insertBefore(div, null);
+            });
+            //Read the image
+            picReader.readAsDataURL(file);
+        }
+    } else {
+        console.log("Your browser does not support File API");
+    }
+}
+
+document.getElementById('files').addEventListener('change', handleFileSelect, false);
 
 
 

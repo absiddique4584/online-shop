@@ -18,6 +18,7 @@ class BrandsTableSeeder extends Seeder
             Brand::create([
                'brand_name'=>$brand,
                 'brand_slug'=>slugify($brand),
+                'top_brand' =>rand(0,1),
                 'status'=>rand(0,1)
             ]);
         }

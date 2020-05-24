@@ -83,12 +83,12 @@ class ProductController extends Controller
      */
     public function findCategories($id){
         $categories = SubCategory::select('id', 'name')->where('category_id',$id)->get();
-
         echo '<option value="">Select SubCategory</option>';
         foreach ($categories as $row){
             echo '<option value="'.$row->id.'">'.$row->name.'</option>';
         }
     }
+
 
 
 
@@ -132,13 +132,13 @@ class ProductController extends Controller
             if ($request->hasFile('gallery')){
                 $gallery = $this->imageGallery($request);
             }
-
+            $name = $request->name;
             $product = Product::create([
                 'cat_id' =>$request->cat_id,
                 'subcat_id' =>$request->subcat_id,
                 'brand_id' =>$request->brand_id,
-                'name' =>$request->name,
-                'slug' =>slugify($request->name),
+                'name' =>$name,
+                'slug' =>slugify($name),
                 'model' =>$request->model,
                 'buying_price' =>$request->buying_price,
                 'selling_price' =>$request->selling_price,
@@ -237,11 +237,11 @@ class ProductController extends Controller
         try {
             //thumbnail section
             $thumbnail = $request->file('thumbnail');
-            $fileEx = $thumbnail->getClientOriginalExtension();
-            $thumbnailName = date('Ymdhis.') . $fileEx;
+            $fileEx2 = $thumbnail->getClientOriginalExtension();
+            $thumbnailName2 = date('Ymdhis.') . $fileEx2;
             Image::make($thumbnail)
                 ->resize(400,400)
-                ->save(public_path('uploads/product/').$thumbnailName);
+                ->save(public_path('uploads/product/').$thumbnailName2);
 
             //gallery section
             $gallery =[];
@@ -266,7 +266,7 @@ class ProductController extends Controller
                 'warranty' =>$request->warranty,
                 'warranty_duration' =>$request->warranty_duration,
                 'warranty_condition' =>$request->warranty_condition,
-                'thumbnail' =>$thumbnailName,
+                'thumbnail' =>$thumbnailName2,
                 'gallery' =>json_encode($gallery),
                 'description' =>$request->description,
                 'long_description' =>$request->long_description,

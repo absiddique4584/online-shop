@@ -51,19 +51,25 @@
                         <div class="form-group">
                             <label for="start" class="col-sm-3 control-label">Start Date</label>
                             <div class="col-sm-9">
-                                <input type="date" class="form-control" id="start" name="start" value="{{ old('start') }}" required placeholder="YYYY-MM-DD">
+                                <input type="text" class="form-control datepicker" id="start" name="start" value="{{ old('start') }}" required placeholder="YYYY-MM-DD">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="end" class="col-sm-3 control-label">End Date</label>
                             <div class="col-sm-9">
-                                <input type="date" class="form-control" id="end" name="end" value="{{ old('end') }}" required placeholder="YYYY-MM-DD">
+                                <input type="text" class="form-control datepicker" id="end" name="end" value="{{ old('end') }}" required placeholder="YYYY-MM-DD">
                             </div>
                         </div>
+
                         <div class="form-group">
                             <label for="image" class="col-sm-3 control-label">Image</label>
                             <div class="col-sm-9">
-                                <input type="file" class="form-control" id="image" name="image"  required>
+
+                                <input style="display:none;" type="file" class="" id="image" data-id="image" onChange="previewImage(this)" name="image" value="{{ old('image') }}" required >
+                                <input type="button" data-id="image" class="btn btn-info fileClick" value="Select Image"/> <br>
+                                <a href=""class="image">
+                                    <img style=" height:100px;" src=""  id="preview_image" alt=""/>
+                                </a>
                             </div>
                         </div>
 

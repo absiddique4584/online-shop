@@ -34,6 +34,7 @@
                             <tr>
                                 <th>SI No</th>
                                 <th>Brand Name</th>
+                                <th>Top Menu</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -43,6 +44,9 @@
                             <tr>
                                 <td>{{ $loop->iteration}}</td>
                                 <td>{{ $brand->brand_name }}</td>
+                                <td>
+                                    <input type="checkbox" {{ $brand->top_brand ==1 ? 'checked':'' }} id="topbrandStatus" data-id="{{ $brand->id }}" data-toggle="toggle" data-on="SET" data-off="UNSET" data-size="mini">
+                                </td>
                                 <td>
                                     <input type="checkbox" {{ $brand->status ===1 ? 'checked':'' }} id="brandStatus" data-id="{{ $brand->id }}" data-toggle="toggle" data-on="Active" data-off="Inactive" data-size="mini">
                                 </td>

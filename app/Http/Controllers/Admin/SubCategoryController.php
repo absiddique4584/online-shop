@@ -53,7 +53,7 @@ class SubCategoryController extends Controller
         $category = null;
         try {
             $name     = $request->name;
-            $category = Category::create([
+            $category = SubCategory::create([
                 'category_id' => $request->category,
                 'name'        => $name,
                 'slug'        => slugify($name)

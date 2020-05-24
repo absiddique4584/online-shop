@@ -16,10 +16,11 @@
 <script src="{{asset('assets/admin/vendor/data-table/media/js/dataTables.bootstrap.min.js') }}"></script>
 <!--Date picker-->
 <script src="{{asset('assets/admin/vendor/bootstrap_date-picker/js/bootstrap-datepicker.min.js')}}"></script>
+<script src="{{asset('assets/admin/vendor/bootstrap-select/dist/js/bootstrap-select.js')}}"></script>
 
 
 <!-- SECTION script and examples-->
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script src="{{asset('assets/admin/vendor/bootstrap/js/bootstrap-toggle.min.js')}}"></script>
 <!-- ========================================================= -->
 <!--Notification msj-->
 <script src="{{asset('assets/admin/vendor/toastr/toastr.min.js')}}"></script>

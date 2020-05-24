@@ -18,6 +18,7 @@ class BrandController extends Controller
    public function index(){
       $brands =  Brand::latest()->get();
 
+
        return view('admin.brand.manage',compact('brands'));
    }
 
@@ -48,6 +49,7 @@ class BrandController extends Controller
             Brand::create([
                 'brand_name' =>$brandName,
                 'brand_slug' => slugify($brandName),
+                'top_brand' =>$request->top_brand,
                 'status' => '1'
             ]);
             $brand = true;
@@ -94,8 +96,9 @@ class BrandController extends Controller
         try {
             $brandName = $request ->brand_name;
             $brand->update([
-                'brand_name' => $brandName,
-            'brand_slug' => slugify($brandName)
+                'brand_name' =>$brandName,
+                'brand_slug' => slugify($brandName),
+                'top_brand' =>$request->top_brand
 
             ]);
             $success = true;
@@ -119,6 +122,19 @@ class BrandController extends Controller
     public function updateStatus($id,$status){
         $brand = Brand::find($id);
         $brand->status = $status;
+        $brand->save();
+    }
+
+
+
+
+    /**
+     * @param $id
+     * @param $status
+     */
+    public function updatetopBrand($id,$top_brand){
+        $brand = Brand::find($id);
+        $brand->top_brand = $top_brand;
         $brand->save();
     }
 
