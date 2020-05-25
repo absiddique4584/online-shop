@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Profile;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
@@ -19,8 +20,8 @@ class SubCategoryController extends Controller
     public function index()
     {
         $categories = SubCategory::with('category')->latest()->get();
-
-        return view('admin.sub-category.manage', compact('categories'));
+        $profiles = Profile::select('name','image')->get();
+        return view('admin.sub-category.manage', compact('categories','profiles'));
     }
 
 
@@ -32,8 +33,9 @@ class SubCategoryController extends Controller
      */
     public function create()
     {
+        $profiles = Profile::select('name','image')->get();
         $categories = Category::orderBy('name', 'ASC')->get();
-        return view('admin.sub-category.create', compact('categories'));
+        return view('admin.sub-category.create', compact('categories','profiles'));
     }
 
 
@@ -85,8 +87,8 @@ class SubCategoryController extends Controller
         $subCat = SubCategory::find($id);
 
         $categories = Category::orderBy('name', 'ASC')->get();
-
-        return view('admin.sub-category.edit', compact('subCat', 'categories'));
+        $profiles = Profile::select('name','image')->get();
+        return view('admin.sub-category.edit', compact('subCat', 'categories','profiles'));
     }
 
 

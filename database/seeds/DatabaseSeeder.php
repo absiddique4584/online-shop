@@ -17,7 +17,9 @@ class DatabaseSeeder extends Seeder
              CategoriesTableSeeder::class,
              SubCategoriesTableSeeder::class,
              SlidersTableSeeder::class,
-             ProductsTableSeeder::class
+             ProductsTableSeeder::class,
+             AboutTableSeeder::class,
+             ProfileTableSeeder::class
          ]);
     }
 }

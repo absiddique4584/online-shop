@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
+use App\Models\Profile;
 use Illuminate\Http\Request;
 use Exception;
 
@@ -17,9 +18,9 @@ class BrandController extends Controller
      */
    public function index(){
       $brands =  Brand::latest()->get();
+      $profiles = Profile::select('name','image')->get();
 
-
-       return view('admin.brand.manage',compact('brands'));
+       return view('admin.brand.manage',compact('brands','profiles'));
    }
 
 
@@ -29,7 +30,8 @@ class BrandController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create(){
-        return view('admin.brand.create');
+        $profiles = Profile::select('name','image')->get();
+        return view('admin.brand.create',compact('profiles'));
     }
 
 
@@ -74,7 +76,8 @@ class BrandController extends Controller
     public function edit($id){
        $id = base64_decode($id);
        $brand = Brand::find($id);
-        return view('admin.brand.edit',compact('brand'));
+        $profiles = Profile::select('name','image')->get();
+        return view('admin.brand.edit',compact('brand','profiles'));
     }
 
 

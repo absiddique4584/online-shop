@@ -21,6 +21,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/edit/{id}', 'Admin\ProfileController@edit')->name('edit');
         Route::post('/update/{id}', 'Admin\ProfileController@update')->name('update');
         Route::get('/delete/{id}', 'Admin\ProfileController@delete')->name('delete');
+        Route::get('/change-profile-Name/{id}/{name}', 'Admin\ProfileController@changeprofileName');
 
     });
 
@@ -99,6 +100,22 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/update-selling-Price', 'Admin\ProductController@updateSellingPrice');
         Route::post('/update-special-Price', 'Admin\ProductController@updateSpecialPrice');
         Route::get('/update-status/{id}/{status}', 'Admin\ProductController@updateStatus')->name('update.status');
+    });
+
+
+
+    
+    /**
+     * About Route
+     */
+    Route::prefix('abouts')->name('abouts.')->group(function () {
+        Route::get('/', 'Admin\AboutController@index')->name('manage');
+        Route::get('/add', 'Admin\AboutController@create')->name('create');
+        Route::post('/store', 'Admin\AboutController@store')->name('store');
+        Route::get('/edit/{id}', 'Admin\AboutController@edit')->name('edit');
+        Route::post('/update/{id}', 'Admin\AboutController@update')->name('update');
+        Route::get('/delete/{id}', 'Admin\AboutController@delete')->name('delete');
+        Route::get('/update-status/{id}/{status}', 'Admin\AboutController@updateStatus')->name('update.status');
     });
 
 

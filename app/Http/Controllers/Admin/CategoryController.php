@@ -4,28 +4,43 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Profile;
 use Illuminate\Http\Request;
 use Exception;
 
 class CategoryController extends Controller
 {
+
+
+
+
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
         $categories = Category::latest()->get();
-
-        return view('admin.category.manage', compact('categories'));
+        $profiles = Profile::select('name','image')->get();
+        return view('admin.category.manage', compact('categories','profiles'));
     }
+
+
+
+
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
-        return view('admin.category.create');
+        $profiles = Profile::select('name','image')->get();
+        return view('admin.category.create',compact('profiles'));
     }
+
+
+
+
+
 
     /**
      * @param Request $request
@@ -56,6 +71,11 @@ class CategoryController extends Controller
     }
 
 
+
+
+
+
+
     /**
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -64,10 +84,18 @@ class CategoryController extends Controller
     {
         $id       = base64_decode($id);
         $category = Category::find($id);
-
-        return view('admin.category.edit', compact('category'));
+        $profiles = Profile::select('name','image')->get();
+        return view('admin.category.edit', compact('category','profiles'));
     }
 
+
+
+
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request)
     {
         $id = $request->id;
@@ -97,6 +125,10 @@ class CategoryController extends Controller
         return redirect()->back();
     }
 
+
+
+
+
     /**
      * @param $id
      * @param $status
@@ -107,6 +139,10 @@ class CategoryController extends Controller
         $category->status = $status;
         $category->save();
     }
+
+
+
+
 
 
     /**

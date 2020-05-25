@@ -128,8 +128,7 @@
 
                            <button type="button" class="" data-toggle="modal" data-target="#primary-modal"><i class="fa fa-pencil-square"></i></button>
                            <!-- Modal -->
-                           <form method="POST" action="{{route('profiles.update',$row->id)}}" enctype="multipart/form-data">
-                               @csrf
+
 
 
                            <div class="modal fade" id="primary-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
@@ -141,25 +140,9 @@
                                        </div>
                                        <div class="modal-body">
                                            <label for="name">Name</label>
-                                           <input style="width: 400px;" type="text" id="name" name="name" value="{{$row->name}}">
-<div class="clearfix"></div>
-                                           <label for="address">address</label>
-                                           <input style="width: 400px;" type="text" id="address" name="address" value="{{$row->address}}">
-                                           <div class="clearfix"></div>
-                                           <label for="phone">phone</label>
-                                           <input style="width: 400px;" type="text" id="phone" name="phone" value="{{$row->phone}}">
+                                           <input class="name" style="width: 400px;" type="text" data-id ="{{ $row->id }}" id="name" name="name" value="{{$row->name}}">
 
-                                           <div class="clearfix"></div>
-                                           <label for="website_address">website_address</label>
-                                           <input style="width: 400px;" type="text" id="website_address" name="website_address" value="{{$row->website_address}}">
-                                           <div class="clearfix"></div>
 
-                                           <label for="email">email</label>
-                                           <input style="width: 400px;" type="text" id="email" name="email" value="{{$row->email}}">
-
-                                           <div class="clearfix"></div>
-                                           <label for="image">Image</label>
-                                           <input style="width: 400px;" type="text" id="image" name="image" value="{{$row->image}}">
                                        </div>
                                        <div class="modal-footer">
                                            <button type="submit" class="btn btn-primary" >Save</button>
@@ -167,7 +150,7 @@
                                    </div>
                                </div>
                            </div>
-                           </form>
+
                            <!---------------------------------------->
                        </h5>
                    </div>

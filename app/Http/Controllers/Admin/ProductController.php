@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Models\Brand;
+use App\Models\Profile;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use App\Models\Category;
@@ -23,8 +24,8 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::select('id', 'name', 'model', 'buying_price', 'selling_price', 'special_price', 'special_start', 'special_end', 'quantity', 'thumbnail', 'status')->orderBy('id', 'desc')->get();
-
-        return view('admin.product.manage', compact('products'));
+        $profiles = Profile::select('name','image')->get();
+        return view('admin.product.manage', compact('products','profiles'));
     }
 
 
@@ -102,7 +103,8 @@ class ProductController extends Controller
     {
         $categories= Category::get();
         $brands= Brand::get();
-        return view('admin.product.create',compact('categories','brands'));
+        $profiles = Profile::select('name','image')->get();
+        return view('admin.product.create',compact('categories','brands','profiles'));
     }
 
 
@@ -215,7 +217,8 @@ class ProductController extends Controller
         $categories= Category::select('id','name')->get();
         $brands = Brand::select('id','brand_name')->get();
         $subcategories = SubCategory::select('id','name')->get();
-        return view('admin.product.edit', compact('products','categories','brands','subcategories'));
+        $profiles = Profile::select('name','image')->get();
+        return view('admin.product.edit', compact('products','categories','brands','subcategories','profiles'));
     }
 
 

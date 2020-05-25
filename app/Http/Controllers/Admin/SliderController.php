@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Profile;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 use Exception;
@@ -17,8 +18,8 @@ class SliderController extends Controller
     public function index()
     {
         $sliders = Slider::latest()->get();
-
-        return view('admin.slider.manage', compact('sliders'));
+        $profiles = Profile::select('name','image')->get();
+        return view('admin.slider.manage', compact('sliders','profiles'));
     }
 
 
@@ -29,7 +30,8 @@ class SliderController extends Controller
      */
     public function create()
     {
-        return view('admin.slider.create');
+        $profiles = Profile::select('name','image')->get();
+        return view('admin.slider.create',compact('profiles'));
     }
 
 
@@ -88,8 +90,8 @@ class SliderController extends Controller
     {
         $id       = base64_decode($id);
         $slider = Slider::find($id);
-
-        return view('admin.slider.edit', compact('slider'));
+        $profiles = Profile::select('name','image')->get();
+        return view('admin.slider.edit', compact('slider','profiles'));
     }
 
 

@@ -58,15 +58,18 @@
         </div>
         <!-- RIGHTSIDE header -->
         <div class="rightside-header">
+            @foreach($profiles as $profile)
             <div class="header-middle"></div>
 
             <!--USER HEADERBOX -->
             <div class="header-section" id="user-headerbox">
+
                 <div class="user-header-wrap">
                     <div class="user-photo">
-                        <img alt="profile photo" src="{{ asset('uploads/profile/hero.jpg')}}"/>
+                        <img alt="profile photo" src="{{ asset('uploads/profile/'.$profile->image)}}"/>
                     </div>
                     <div class="user-info">
+
                         <span class="user-name">{{ auth()->user()->name }}</span>
                         <span class="user-profile">{{ auth()->user()->is_admin === 1 ? 'Admin':'Super Admin' }}</span>
                     </div>
@@ -80,6 +83,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="header-separator"></div>
             <!--Log out -->
             <div class="header-section">
@@ -89,6 +93,8 @@
                     @csrf
                 </form>
             </div>
+                <h5>{{$profile->name}}</h5>
+            @endforeach
         </div>
     </div>
     <!-- page BODY -->
@@ -149,7 +155,15 @@
                                     <li class="{{ request()->is('products') ? 'active-item':'' }}"><a href="{{ route('products.manage') }}">Manage Products</a></li>
                                 </ul>
                             </li>
-
+                            <!--ABOUT ONLINE SHOP-->
+                            <li class="has-child-item {{ request()->is('abouts','abouts/*') ? 'open-item active-item':'' }} close-item">
+                                <a><i class="fa fa-list" aria-hidden="true"></i><span>About Online Shop</span></a>
+                                <ul class="nav child-nav level-1">
+                                    <li class="{{ request()->is('abouts/add','abouts/edit/*') ? 'active-item':'' }}"><a href="{{ route('abouts.create') }}">Add About</a></li>
+                                    <li class="{{ request()->is('abouts') ? 'active-item':'' }}"><a href="{{ route('abouts.manage') }}">Manage About</a></li>
+                                </ul>
+                            </li>
+                            <!------------------------->
                         </ul>
                     </nav>
                 </div>

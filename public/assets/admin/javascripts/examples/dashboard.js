@@ -410,7 +410,24 @@ document.getElementById('files').addEventListener('change', handleFileSelect, fa
 
 
 
+/*
+Profile Name
+ */
 
+$('body').on('change', ".name", function () {
+    var name = $(this).val();
+    var id = $(this).attr('data-id');
+
+    $('.loader__').show();
+    $.ajax({
+        url: site_url+"profiles/change-profile-Name/" + id + '/' +name,
+        method: 'get',
+        success: function (result) {
+
+            $('.loader__').hide();
+        }
+    });
+});
 
 
 

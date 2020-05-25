@@ -12,15 +12,15 @@ class ProfileController extends Controller
 {
 
 
-
-
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(){
-        $profiles =  Profile::get();
-        return view('admin.profile.manage',compact('profiles'));
+    public function index()
+    {
+        $profiles = Profile::get();
+        return view('admin.profile.manage', compact('profiles'));
     }
+
 
 
 
@@ -33,30 +33,30 @@ class ProfileController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'     => 'required',
+            'name' => 'required',
             'address' => 'required',
-            'phone'     => 'required',
-            'website_address'       => 'required',
-            'email'     => 'required',
-            'image'       => 'required'
+            'phone' => 'required',
+            'website_address' => 'required',
+            'email' => 'required',
+            'image' => 'required'
         ]);
         $profile = null;
         try {
-            $image    = $request->file('image');
-            $fileEx   = $image->getClientOriginalExtension();
+            $image = $request->file('image');
+            $fileEx = $image->getClientOriginalExtension();
             $fileName = date('Ymdhis.') . $fileEx;
             Image::make($image)
-                ->resize(100,100)
-                ->save(public_path('uploads/profile/').$fileName);
+                ->resize(100, 100)
+                ->save(public_path('uploads/profile/') . $fileName);
             //$image->move(public_path('uploads/slider/'), $fileName);
 
             $profile = Profile::create([
-                'name'     => $request->name,
+                'name' => $request->name,
                 'address' => $request->address,
-                'phone'     => $request->phone,
-                'website_address'       => $request->website_address,
-                'email'     => $request->email,
-                'image'       => $fileName,
+                'phone' => $request->phone,
+                'website_address' => $request->website_address,
+                'email' => $request->email,
+                'image' => $fileName,
             ]);
         } catch (Exception $exception) {
             $profile = false;
@@ -73,34 +73,15 @@ class ProfileController extends Controller
 
 
 
-
-
     /**
-     * @param Request $request
+     * @param $id
      * @param $name
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id){
-
-        $profiles = Profile::find($id);
-
-$success=null;
-        try {
-            $success=$profiles->save([
-                'name' =>$request->name,
-                
-            ]);
-
-        }catch (Exception $exception){
-
-            $success = false;
-        }
-        if ($success == true){
-            setMessage('success',' updated Successfully !');
-        }else{
-            setMessage('danger','Something Wrong !');
-        }
-        return redirect()->back();
+    public function changeprofileName($id ,$name){
+        $profile = Profile::select('id','name')->find($id);
+        $profile->name = $name;
+        $profile->save();
     }
+
 
 }
