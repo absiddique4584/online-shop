@@ -13,6 +13,10 @@ Route::get('/policy', 'Site\SiteController@policy')->name('policy');
 
 
 
+//TEST ROUTE
+Route::get('/load-more-data', 'LoadMoreDataController@index');
+Route::post('/load-more-data', 'LoadMoreDataController@load_more')->name('load-more-data');
+
 
 
 
