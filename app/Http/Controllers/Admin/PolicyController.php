@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\About;
-use App\Models\Profile;
 use Exception;
-class AboutController extends Controller
+use App\Models\Profile;
+use App\Models\Policy;
+class PolicyController extends Controller
 {
 
 
@@ -17,13 +17,11 @@ class AboutController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(){
-        $abouts =  About::latest()->get();
-        $profiles = Profile::get();
+        $policies =  Policy::latest()->get();
+        $profiles = Profile::select('name','image')->get();
 
-        return view('admin.about.manage',compact('abouts','profiles'));
+        return view('admin.policy.manage',compact('policies','profiles'));
     }
-
-
 
 
 
@@ -32,8 +30,8 @@ class AboutController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create(){
-        $profiles = Profile::get();
-        return view('admin.about.create',compact('profiles'));
+        $profiles = Profile::select('name','image')->get();
+        return view('admin.policy.create',compact('profiles'));
     }
 
 
@@ -44,21 +42,26 @@ class AboutController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request){
-        $request->validate([
-            'long_desc'=>'required'
-        ]);
-        $abouts =null;
-        try {
-            About::create([
-                'long_desc' =>$request->long_desc,
 
+        $request->validate([
+            'privacy_policy'=>'required',
+            'collect_info'=>'required',
+            'utilize_info'=>'required'
+        ]);
+        $policies =null;
+        try {
+
+            Policy::create([
+                'privacy_policy' =>$request->privacy_policy,
+                'collect_info' =>$request->collect_info,
+                'utilize_info' =>$request->utilize_info,
             ]);
-            $abouts = true;
+            $policies = true;
         }catch (Exception $exception){
-            $abouts = false;
+            $policies = false;
         }
-        if ($abouts == true){
-            setMessage('success','About Save Success !');
+        if ($policies == true){
+            setMessage('success','Policy Save Success !');
         }else{
             setMessage('danger','Something Wrong !');
         }
@@ -74,10 +77,11 @@ class AboutController extends Controller
      */
     public function edit($id){
         $id = base64_decode($id);
-        $abouts = About::find($id);
-        $profiles = Profile::get();
-        return view('admin.about.edit',compact('abouts','profiles'));
+        $policies= Policy::find($id);
+        $profiles = Profile::select('name','image')->get();
+        return view('admin.policy.edit',compact('policies','profiles'));
     }
+
 
 
 
@@ -88,30 +92,32 @@ class AboutController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id){
-        $abouts = About::find($id);
+        $policies = Policy::find($id);
 
         $request->validate([
-            'long_desc'=>'required'
+            'privacy_policy'=>'required',
+            'collect_info'=>'required',
+            'utilize_info'=>'required'
         ]);
 
         $success =null;
         try {
-            $abouts->update([
-                'long_desc' =>$request->long_desc
+            $policies->update([
+                'privacy_policy' =>$request->privacy_policy,
+                'collect_info' =>$request->collect_info,
+                'utilize_info' =>$request->utilize_info,
             ]);
             $success = true;
         }catch (Exception $exception){
             $success = false;
         }
         if ($success == true){
-            setMessage('success','About updated Successfully !');
+            setMessage('success','Policies updated Successfully !');
         }else{
             setMessage('danger','Something Wrong !');
         }
         return redirect()->back();
     }
-
-
 
 
 
@@ -123,9 +129,9 @@ class AboutController extends Controller
      */
     public function delete($id){
         $id = base64_decode($id);
-        $abouts = About::find($id);
-        $abouts->delete();
-        setMessage('success','About has been Successfully Deleted !');
+        $policies = Policy::find($id);
+        $policies->delete();
+        setMessage('success','Policies has been Successfully Deleted !');
         return redirect()->back();
     }
 }

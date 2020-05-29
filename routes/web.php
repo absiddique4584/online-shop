@@ -5,6 +5,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'Site\SiteController@index')->name('index');
 Route::get('/category/{slug}', 'Site\SiteController@category')->name('category');
+Route::get('/product/{slug}', 'Site\SiteController@product')->name('product');
+Route::get('/about', 'Site\SiteController@about')->name('about');
+Route::get('/condition', 'Site\SiteController@condition')->name('condition');
+Route::get('/policy', 'Site\SiteController@policy')->name('policy');
+
+
+
+
+
+
 
 Auth::routes();
 
@@ -17,6 +27,7 @@ Route::group(['middleware' => 'auth'], function () {
      */
     Route::prefix('profiles')->name('profiles.')->group(function () {
         Route::get('/', 'Admin\ProfileController@index')->name('manage');
+        Route::get('/add', 'Admin\ProfileController@create')->name('create');
         Route::post('/store', 'Admin\ProfileController@store')->name('store');
         Route::get('/edit/{id}', 'Admin\ProfileController@edit')->name('edit');
         Route::post('/update/{id}', 'Admin\ProfileController@update')->name('update');
@@ -104,7 +115,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 
-    
+
     /**
      * About Route
      */
@@ -115,7 +126,30 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/edit/{id}', 'Admin\AboutController@edit')->name('edit');
         Route::post('/update/{id}', 'Admin\AboutController@update')->name('update');
         Route::get('/delete/{id}', 'Admin\AboutController@delete')->name('delete');
-        Route::get('/update-status/{id}/{status}', 'Admin\AboutController@updateStatus')->name('update.status');
+    });
+
+    /**
+     * Terms & Conditions Route
+     */
+    Route::prefix('conditions')->name('conditions.')->group(function () {
+        Route::get('/', 'Admin\ConditionController@index')->name('manage');
+        Route::get('/add', 'Admin\ConditionController@create')->name('create');
+        Route::post('/store', 'Admin\ConditionController@store')->name('store');
+        Route::get('/edit/{id}', 'Admin\ConditionController@edit')->name('edit');
+        Route::post('/update/{id}', 'Admin\ConditionController@update')->name('update');
+        Route::get('/delete/{id}', 'Admin\ConditionController@delete')->name('delete');
+    });
+
+    /**
+     * Privacy Policy Route
+     */
+    Route::prefix('policies')->name('policies.')->group(function () {
+        Route::get('/', 'Admin\PolicyController@index')->name('manage');
+        Route::get('/add', 'Admin\PolicyController@create')->name('create');
+        Route::post('/store', 'Admin\PolicyController@store')->name('store');
+        Route::get('/edit/{id}', 'Admin\PolicyController@edit')->name('edit');
+        Route::post('/update/{id}', 'Admin\PolicyController@update')->name('update');
+        Route::get('/delete/{id}', 'Admin\PolicyController@delete')->name('delete');
     });
 
 

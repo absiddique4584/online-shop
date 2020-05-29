@@ -99,12 +99,12 @@
 
                     <div class="module-body">
                         <ul class='list-unstyled'>
-                            <li class="first"><a href="#" title="About us">About Online Shop</a></li>
+                            <li class="first"><a href="{{route('about')}}" title="About us">About Online Shop</a></li>
                             <li><a href="#" title="Blog">Online Shop Blog</a></li>
                             <li><a href="#" title="Company">Online Shop Carrer</a></li>
                             <li class=" last"><a href="" title="Suppliers">How to Buy</a></li>
-                            <li><a href="#" title="Investor Relations">Terms & Conditions</a></li>
-                            <li class=" last"><a href="" title="Suppliers">Privacy Policy</a></li>
+                            <li><a href="{{route('condition')}}" title="Investor Relations">Terms & Conditions</a></li>
+                            <li class=" last"><a href="{{route('policy')}}" title="Suppliers">Privacy Policy</a></li>
                         </ul>
                     </div><!-- /.module-body -->
                 </div>

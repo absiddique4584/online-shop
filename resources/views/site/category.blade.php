@@ -5,8 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="body-content outer-top-xs">
-        <div class='container'>
+
             <div class='row'>
                 <div class='col-md-12'>
                     <div class="search-result-container ">
@@ -15,6 +14,9 @@
                                 <div class="category-product">
                              <div class="row">
 
+                                 @if($products->isEmpty())
+                                     <h1 class="text-center"><b>Product Not Found !</b></h1>
+                                 @else
 
 
                                  @foreach($products as $product)
@@ -25,22 +27,29 @@
                                          <div class="product">
                                              <div class="product-image">
                                                  <div class="image">
-                                                     <a href="detail.html"><img  src="{{asset('uploads/product/'.$product->thumbnail)}}" alt=""></a>
+                                                     <a href="{{route('product',$product->slug)}}"><img  src="{{asset('uploads/product/'.$product->thumbnail)}}" alt=""></a>
                                                  </div><!-- /.image -->
 
                                                  <div class="tag new"><span>new</span></div>
-                                             </div><!-- /.product-image -->
-
-
+                                             </div>
+                                             <!-- /.product-image -->
+                                           @php($price = false)
+                                            @if($product->special_start <= date('Y-m-d') && $product->special_end >= date('Y-m-d') )
+                                                 @php($price = true)
+                                                 @endif
                                              <div class="product-info text-left">
-                                                 <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>
+                                                 <h3 class="name"><a href="{{route('product',$product->slug)}}">{{$product->name}}</a></h3>
                                                  <div class="rating rateit-small"></div>
                                                  <div class="description"></div>
 
                                                  <div class="product-price">
-				<span class="price">
-					$450.99				</span>
-                                                     <span class="price-before-discount">$ 800</span>
+				                                   <span class="price"> &#2547;{{ $price ? $product->special_price:$product->selling_price}} </span>
+
+
+                                                     @if($price)
+                                                     <span class=""> {{ sprintf('%.2f',(($product->selling_price-$product->special_price)/$product->selling_price)*100) }}% off</span>
+                                                     <span class="price-before-discount pull-right"> &#2547;{{$product->selling_price}} </span>
+                                                     @endif
 
                                                  </div><!-- /.product-price -->
 
@@ -57,13 +66,13 @@
                                                          </li>
 
                                                          <li class="lnk wishlist">
-                                                             <a class="add-to-cart" href="detail.html" title="Wishlist">
+                                                             <a class="add-to-cart" href="{{route('product',$product->slug)}}" title="Wishlist">
                                                                  <i class="icon fa fa-heart"></i>
                                                              </a>
                                                          </li>
 
                                                          <li class="lnk">
-                                                             <a class="add-to-cart" href="#" title="Compare">
+                                                             <a class="add-to-cart" href="{{route('product',$product->slug)}}" title="Compare">
                                                                  <i class="fa fa-eye"></i>
                                                              </a>
                                                          </li>
@@ -75,6 +84,8 @@
                                      </div><!-- /.products -->
                                  </div><!-- /.item -->
                                  @endforeach
+
+                                 @endif
                              </div>
                                 </div><!-- /.category-product -->
 
@@ -86,9 +97,7 @@
                     </div><!-- /.search-result-container -->
 
                 </div><!-- /.col -->
-            </div><!-- /.row -->
-
-    </div>
-    <br>
-
+            </div>
+            <br>
+            <br>
 @endsection

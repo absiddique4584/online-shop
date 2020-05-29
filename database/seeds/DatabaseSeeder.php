@@ -19,7 +19,9 @@ class DatabaseSeeder extends Seeder
              SlidersTableSeeder::class,
              ProductsTableSeeder::class,
              AboutTableSeeder::class,
-             ProfileTableSeeder::class
+             ProfileTableSeeder::class,
+             ConditionTableSeeder::class,
+             PolicyTableSeeder::class
          ]);
     }
 }

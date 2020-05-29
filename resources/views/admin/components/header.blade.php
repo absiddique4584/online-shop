@@ -121,7 +121,7 @@
                             <li class="{{ request()->is('home') ? 'active-item':'' }}"><a href="{{ route('home') }}"><i class="fa fa-home" aria-hidden="true"></i><span>Dashboard</span></a></li>
                             <!--BRANDS-->
                             <li class="has-child-item {{ request()->is('brands','brands/*') ? 'open-item active-item':'' }} close-item">
-                                <a><i class="fa fa-list" aria-hidden="true"></i><span>Brands</span></a>
+                                <a><i class="fa fa-life-bouy" aria-hidden="true"></i><span>Brands</span></a>
                                 <ul class="nav child-nav level-1">
                                     <li class="{{ request()->is('brands/add','brands/edit/*') ? 'active-item':'' }}"><a href="{{ route('brand.create') }}">Add Brand</a></li>
                                     <li class="{{ request()->is('brands') ? 'active-item':'' }}"><a href="{{ route('brand.manage') }}">Manage Brands</a></li>
@@ -140,7 +140,7 @@
                             </li>
                             <!--SLIDERS-->
                             <li class="has-child-item {{ request()->is('sliders','sliders/*') ? 'open-item active-item':'' }} close-item">
-                                <a><i class="fa fa-list" aria-hidden="true"></i><span>Sliders</span></a>
+                                <a><i class="fa fa-gift" aria-hidden="true"></i><span>Sliders</span></a>
                                 <ul class="nav child-nav level-1">
                                     <li class="{{ request()->is('sliders/add','sliders/edit/*') ? 'active-item':'' }}"><a href="{{ route('sliders.create') }}">Add Slider</a></li>
                                     <li class="{{ request()->is('sliders') ? 'active-item':'' }}"><a href="{{ route('sliders.manage') }}">Manage Sliders</a></li>
@@ -155,12 +155,40 @@
                                     <li class="{{ request()->is('products') ? 'active-item':'' }}"><a href="{{ route('products.manage') }}">Manage Products</a></li>
                                 </ul>
                             </li>
+
+                            <!--About Online Shop-->
+                            <li class="has-child-item {{ request()->is('profiles','profiles/*') ? 'open-item active-item':'' }} close-item">
+                                <a><i class="fa fa-phone-square" aria-hidden="true"></i><span>Contact Us</span></a>
+                                <ul class="nav child-nav level-1">
+                                    <li class="{{ request()->is('profiles/add','profiles/edit/*') ? 'active-item':'' }}"><a href="{{ route('profiles.create') }}">Add Contact Us</a></li>
+                                    <li class="{{ request()->is('profiles') ? 'active-item':'' }}"><a href="{{ route('profiles.manage') }}">Manage Contact Us</a></li>
+                                </ul>
+                            </li>
                             <!--ABOUT ONLINE SHOP-->
                             <li class="has-child-item {{ request()->is('abouts','abouts/*') ? 'open-item active-item':'' }} close-item">
-                                <a><i class="fa fa-list" aria-hidden="true"></i><span>About Online Shop</span></a>
+                                <a><i class="fa fa-user" aria-hidden="true"></i><span>About Online Shop</span></a>
                                 <ul class="nav child-nav level-1">
                                     <li class="{{ request()->is('abouts/add','abouts/edit/*') ? 'active-item':'' }}"><a href="{{ route('abouts.create') }}">Add About</a></li>
                                     <li class="{{ request()->is('abouts') ? 'active-item':'' }}"><a href="{{ route('abouts.manage') }}">Manage About</a></li>
+                                </ul>
+                            </li>
+
+                            <!--Terms & Conditions-->
+                            <li class="has-child-item {{ request()->is('conditions','conditions/*') ? 'open-item active-item':'' }} close-item">
+                                <a><i class="fa fa-tencent-weibo" aria-hidden="true"></i><span>Terms & Conditions</span></a>
+                                <ul class="nav child-nav level-1">
+                                    <li class="{{ request()->is('conditions/add','conditions/edit/*') ? 'active-item':'' }}"><a href="{{ route('conditions.create') }}">Add Condition</a></li>
+                                    <li class="{{ request()->is('conditions') ? 'active-item':'' }}"><a href="{{ route('conditions.manage') }}">Manage Conditions</a></li>
+                                </ul>
+                            </li>
+                            <!------------------------->
+
+                            <!--Terms & Conditions-->
+                            <li class="has-child-item {{ request()->is('policies','policies/*') ? 'open-item active-item':'' }} close-item">
+                                <a><i class="fa fa-key" aria-hidden="true"></i><span>Privacy & Policy</span></a>
+                                <ul class="nav child-nav level-1">
+                                    <li class="{{ request()->is('policies/add','policies/edit/*') ? 'active-item':'' }}"><a href="{{ route('policies.create') }}">Add Policy</a></li>
+                                    <li class="{{ request()->is('policies') ? 'active-item':'' }}"><a href="{{ route('policies.manage') }}">Manage Policy</a></li>
                                 </ul>
                             </li>
                             <!------------------------->
