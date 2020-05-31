@@ -1,5 +1,14 @@
 @if($products->isEmpty())
-    <h1 class="text-center text-danger">No More Products !</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 text-center">
+                <img src="{{asset('assets/site/images/sliders/no-more.jpg')}}" alt="">
+            </div>
+            <div class="col-md-6 text-center">
+                <h1 style="margin-top: 100px; margin-right: 100px;" class="text-center text-danger">No More Products !</h1>
+            </div>
+        </div>
+    </div>
 @else
     @php($i=0)
     @foreach($products as $product)

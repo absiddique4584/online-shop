@@ -97,12 +97,29 @@ class SiteController extends Controller
        $abouts = About::get();
        $id = Product::where('slug',$slug)->pluck('id');
        $product =  Product::where('id',$id)->where('status',Product::ACTIVE_PRODUCT)->first();
+       $relatedProducts =  Product::where('id' , '!=' , $product->id)
+           ->where('subcat_id',$product->subcat_id)
+           ->where('status',Product::ACTIVE_PRODUCT)
+           ->orderBy('id','DESC')
+           ->limit(10)
+           ->get();
+       $newProducts =  Product::where('status',Product::ACTIVE_PRODUCT)
+           ->orderBy('id','DESC')
+           ->limit(12)
+           ->get();
        $profiles = Profile::get();
        $conditions = Condition::get();
        $policies = Policy::get();
-      return view('site.product',compact('product','profiles','abouts','conditions','policies'));
+      return view('site.product',compact('product','profiles','abouts','conditions','policies','relatedProducts','newProducts'));
    }
 
+
+
+
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
    public function about(){
        $profiles = Profile::get();
        $abouts = About::get();
