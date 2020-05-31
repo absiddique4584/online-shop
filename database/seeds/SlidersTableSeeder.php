@@ -11,24 +11,36 @@ class SlidersTableSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker\Factory::create();
-
-        foreach (range(1,5)as $index){
-            $category = $faker->name;
+        foreach (range(1, 5) as $index) {
             Slider::create([
-                'title'=>$faker->sentence,
-                'sub_title'=>$faker->paragraph,
-                'image'=>$faker->imageUrl(),
-                'url'=>$faker->imageUrl(),
-                'start'=>$faker->date(),
-                'end'=>$faker->date(),
-                'status'=>$this->getRandomStatus()
+                'title'     => "New Collections",
+                'sub_title' => "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+                'image'     => $this->getRandomImage(),
+                'url'       => "",
+                'start'     => date('Y-m-d'),
+                'end'       => date('Y-m-d', strtotime('+1 years')),
+                'status'    => $this->getRandomStatus()
             ]);
         }
     }
 
-    public function getRandomStatus(){
-        $statuses =array('active','inactive');
+    /**
+     * @return mixed
+     */
+    public function getRandomStatus()
+    {
+        # Generate random status
+        $statuses = array('active', 'inactive');
         return $statuses[array_rand($statuses)];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRandomImage()
+    {
+        # Generate random image
+        $image = array('01.jpg', '02.jpg', '03.png');
+        return $image[array_rand($image)];
     }
 }

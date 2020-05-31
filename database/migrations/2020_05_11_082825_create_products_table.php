@@ -21,21 +21,21 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('model')->nullable();
-            $table->decimal('buying_price',10,2);
-            $table->decimal('selling_price',10,2);
-            $table->decimal('special_price',10,2)->nullable();
+            $table->decimal('buying_price', 10, 2);
+            $table->decimal('selling_price', 10, 2);
+            $table->decimal('special_price', 10, 2)->nullable();
             $table->date('special_start')->nullable();
             $table->date('special_end')->nullable();
             $table->integer('quantity');
             $table->string('video_url')->nullable();
-            $table->tinyInteger('warranty');
+            $table->tinyInteger('warranty')->default(0);
             $table->string('warranty_duration')->nullable();
-            $table->longText('warranty_condition')->nullable();
+            $table->longText('warranty_conditions')->nullable();
             $table->string('thumbnail');
             $table->string('gallery')->nullable();
-            $table->string('description');
+            $table->text('description');
             $table->longText('long_description')->nullable();
-            $table->enum('status',['active','inactive'])->default('active');
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
     }

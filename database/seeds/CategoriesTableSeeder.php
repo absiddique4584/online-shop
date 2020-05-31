@@ -11,19 +11,24 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker\Factory::create();
+        $categories = ["Groceries", "Mobiles & Tablets", "Computers & Laptops", "Bags & Travel", "Watches & Accessories", "Sports & Outdoors", "Men's Fashion", "Women's Fashion", "Home & Lifestyle", "Health & Beauty"];
 
-        foreach (range(1,10)as $index){
-            $category = $faker->name;
+        foreach ($categories as $category) {
             Category::create([
-                'name'=>$category,
-                'slug'=>slugify($category),
-                'status'=>$this->getRandomStatus()
+                'name'   => $category,
+                'slug'   => slugify($category),
+                'status' => 'active'
             ]);
         }
     }
-    public function getRandomStatus(){
-        $statuses =array('active','inactive');
+
+    /**
+     * @return mixed
+     */
+    public function getRandomStatus()
+    {
+        # Generate random status
+        $statuses = array('active', 'inactive');
         return $statuses[array_rand($statuses)];
     }
 }

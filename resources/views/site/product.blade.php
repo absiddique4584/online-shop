@@ -854,6 +854,6 @@
         </div><!-- /.col -->
         <div class="clearfix"></div>
     </div><!-- /.row -->
-
+    <br><br>
 @endsection
 

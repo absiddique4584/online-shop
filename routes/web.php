@@ -4,19 +4,19 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', 'Site\SiteController@index')->name('index');
-Route::get('/category/{slug}', 'Site\SiteController@category')->name('category');
 Route::get('/product/{slug}', 'Site\SiteController@product')->name('product');
 Route::get('/about', 'Site\SiteController@about')->name('about');
 Route::get('/condition', 'Site\SiteController@condition')->name('condition');
 Route::get('/policy', 'Site\SiteController@policy')->name('policy');
+Route::get('category/{slug}', 'Site\SiteController@category')->name('category');
+
+#LOAD MORE CATEGORY PRODUCTS ROUTE
+Route::post('load-more-category-product', 'Site\SiteController@loadMoreCatProduct')->name('load-more-cat-product');
 
 
-
-
-//TEST ROUTE
-Route::get('/load-more-data', 'LoadMoreDataController@index');
-Route::post('/load-more-data', 'LoadMoreDataController@load_more')->name('load-more-data');
-
+#Test Route
+Route::get('load-more-data', 'LoadMoreDataController@index');
+Route::post('load-more-data', 'LoadMoreDataController@load_more')->name('load-more-data');
 
 
 

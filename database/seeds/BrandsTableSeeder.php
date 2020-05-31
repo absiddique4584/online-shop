@@ -11,15 +11,14 @@ class BrandsTableSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker\Factory::create();
+        $brands = ["Flamingo", "GKK", "JAVA Racing", "KEMEI", "Kiam", "Motorex", "Motul", "Remax", "xiaomi", "Yamalube"];
 
-        foreach (range(1,10)as $index){
-            $brand = $faker->name;
+        foreach ($brands as $brand) {
             Brand::create([
-               'brand_name'=>$brand,
-                'brand_slug'=>slugify($brand),
-                'top_brand' =>rand(0,1),
-                'status'=>rand(0,1)
+                'brand_name' => $brand,
+                'brand_slug' => slugify($brand),
+                'top_brand'  => 1,
+                'status'     => 1
             ]);
         }
     }

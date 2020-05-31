@@ -84,7 +84,7 @@
                             </div><!-- /.hot-deal-wrapper -->
 
                             <div class="product-info text-left m-t-20">
-                                <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>
+                                <h3 class="name"><a href="#">Floral Print Buttoned</a></h3>
                                 <div class="rating rateit-small"></div>
 
                                 <div class="product-price">
@@ -152,7 +152,7 @@
                             </div><!-- /.hot-deal-wrapper -->
 
                             <div class="product-info text-left m-t-20">
-                                <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>
+                                <h3 class="name"><a href="#">Floral Print Buttoned</a></h3>
                                 <div class="rating rateit-small"></div>
 
                                 <div class="product-price">
@@ -220,7 +220,7 @@
                             </div><!-- /.hot-deal-wrapper -->
 
                             <div class="product-info text-left m-t-20">
-                                <h3 class="name"><a href="detail.html">Floral Print Buttoned</a></h3>
+                                <h3 class="name"><a href="#">Floral Print Buttoned</a></h3>
                                 <div class="rating rateit-small"></div>
 
                                 <div class="product-price">
