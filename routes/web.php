@@ -14,6 +14,14 @@ Route::get('category/{slug}', 'Site\SiteController@category')->name('category');
 Route::post('load-more-category-product', 'Site\SiteController@loadMoreCatProduct')->name('load-more-cat-product');
 
 
+#cart route
+Route::post('add-to-cart', 'Site\CartController@add')->name('cart.add');
+Route::get('cart/show', 'Site\CartController@show')->name('cart.show');
+Route::post('cart/remove', 'Site\CartController@remove')->name('cart.remove');
+Route::post('cart/update', 'Site\CartController@update')->name('cart.update');
+
+
+
 #Test Route
 Route::get('load-more-data', 'LoadMoreDataController@index');
 Route::post('load-more-data', 'LoadMoreDataController@load_more')->name('load-more-data');

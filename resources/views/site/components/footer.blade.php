@@ -140,7 +140,31 @@
     </div>
 </footer>
 <!-- ============================================================= FOOTER : END============================================================= -->
+<div class="loader-box">
+    <div class="loader">
+        <img src="{{asset('assets/site/images/ajax.gif')}}" alt="">
+    </div>
+</div>
 
+<style>
+    .loader-box{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,.7);
+        color: #fff;
+        display: none;
+    }
+    .loader{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%);
+    }
+
+</style>
 
 <!-- For demo purposes – can be removed on production -->
 

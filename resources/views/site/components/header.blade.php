@@ -95,11 +95,11 @@
                                 <div class="basket">
                                     <i class="glyphicon glyphicon-shopping-cart"></i>
                                 </div>
-                                <div class="basket-item-count"><span class="count">2</span></div>
+                                <div class="basket-item-count"><span class="count">{{ Cart::getTotalQuantity()}}</span></div>
                                 <div class="total-price-basket">
                                     <span class="lbl">cart -</span>
                                     <span class="total-price">
-						<span class="sign">$</span><span class="value">600.00</span>
+						<span class="sign">&#2547;</span><span class="value"> {{ Cart::getTotal() }}</span>
 					</span>
                                 </div>
 
@@ -108,35 +108,38 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
+
+                                @foreach(Cart::getContent() as $item )
                                 <div class="cart-item product-summary">
                                     <div class="row">
                                         <div class="col-xs-4">
                                             <div class="image">
-                                                <a href="#"><img src="{{ asset('assets/site/images/cart.jpg') }}" alt=""></a>
+                                                <img src="{{ asset( 'uploads/product'.$item->attributes->thumbnail ) }}" alt="">
                                             </div>
                                         </div>
                                         <div class="col-xs-7">
 
-                                            <h3 class="name"><a href="index8a95.html?page-detail">Simple Product</a></h3>
-                                            <div class="price">$600.00</div>
+                                            <h3 class="name"><a href="{{route('product',$item->attributes->slug)}}">{{ substr($item->name,0,20) }}</a></h3>
+                                            <div class="price">&#2547; {{ $item->price * $item->quantity }}</div>
                                         </div>
                                         <div class="col-xs-1 action">
                                             <a href="#"><i class="fa fa-trash"></i></a>
                                         </div>
                                     </div>
                                 </div><!-- /.cart-item -->
+                                @endforeach
                                 <div class="clearfix"></div>
                                 <hr>
 
                                 <div class="clearfix cart-total">
                                     <div class="pull-right">
 
-                                        <span class="text">Sub Total :</span><span class='price'>$600.00</span>
+                                        <span class="text">Sub Total :</span><span class='price'>&#2547; {{ Cart::getTotal() }}</span>
 
                                     </div>
                                     <div class="clearfix"></div>
 
-                                    <a href="checkout.html" class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>
+                                    <a href="#" class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>
                                 </div><!-- /.cart-total-->
 
 
@@ -172,7 +175,7 @@
 
                                 @foreach($brands as $row)
                                 <li class="dropdown ">
-                                    <a href="{{route('index')}}" >{{$row->brand_name}}</a>
+                                    <a href="#" >{{$row->brand_name}}</a>
                                 </li>
                                 @endforeach
 

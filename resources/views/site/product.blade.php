@@ -377,8 +377,8 @@
                                     <div class="product-price">
 
 
-				                    <span class="price">{{$relatedProduct->selling_price}}</span>
-                                        <span class="price-before-discount">{{$relatedProduct->special_price}}</span>
+				                    <span class="price">{{$relatedProduct->special_price}}</span>
+                                        <span class="price-before-discount">{{$relatedProduct->selling_price}}</span>
 
                                     </div><!-- /.product-price -->
 

@@ -37,6 +37,8 @@
         var slug = $('input[name="catslug"]').val();
         load_more('', token);
         function load_more(id = "", token) {
+
+            $(".loader-box").show();
             $.ajax({
                 url: '{{ route('load-more-cat-product') }}',
                 method: 'POST',
@@ -44,6 +46,8 @@
                 success: function (data) {
                     $('#loadMoreButton').remove();
                     $('#categoryProduct').append(data);
+
+                    $(".loader-box").hide();
                 }
             });
         }
