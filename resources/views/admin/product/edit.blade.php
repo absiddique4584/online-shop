@@ -188,6 +188,19 @@
                                 </div>
 
                                 <!------------------>
+                                <!------Feature Products ------->
+                                <div class="col-sm-6">
+                                    <label for="hot_deals" class=" control-label">Hot Deals</label>
+                                    <input type="number" class="form-control " id="hot_deals" name="hot_deals" value="{{ $products->hot_deals }}"  placeholder="Hot Deals">
+                                </div>
+                                <!------------------>
+
+                                <!------Feature Products ------->
+                                <div class="col-sm-6">
+                                    <label for="f_products" class=" control-label">Feature Products</label>
+                                    <input type="number" class="form-control " id="f_products" name="f_products" value="{{ $products->f_products }}"  placeholder="Feature Products">
+                                </div>
+                                <!------------------>
 
                                 <!------Status ------->
 

@@ -28,8 +28,25 @@ class Product extends Model
       'gallery',
       'description',
       'long_description',
+      'hot_deals',
+      'f_products',
       'status',
   ];
   public const ACTIVE_PRODUCT = 'active';
     public const INACTIVE_PRODUCT = 'inactive';
+
+
+
+    public function brands(){
+        return $this->belongsTo(Brand::class);
+    }
+
+
 }
+
+
+
+
+
+
+

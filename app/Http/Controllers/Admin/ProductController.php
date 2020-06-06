@@ -23,7 +23,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::select('id', 'name', 'model', 'buying_price', 'selling_price', 'special_price', 'special_start', 'special_end', 'quantity', 'thumbnail', 'status')->orderBy('id', 'desc')->get();
+        $products = Product::select('id', 'name', 'model', 'buying_price', 'selling_price', 'special_price', 'special_start', 'special_end', 'quantity', 'thumbnail','hot_deals','f_products', 'status')->orderBy('id', 'desc')->get();
         $profiles = Profile::select('name','image')->get();
         return view('admin.product.manage', compact('products','profiles'));
     }
@@ -156,6 +156,8 @@ class ProductController extends Controller
                 'gallery' =>json_encode($gallery),
                 'description' =>$request->description,
                 'long_description' =>$request->long_description,
+                'hot_deals' =>$request->hot_deals,
+                'f_products' =>$request->f_products,
                 'status' =>$request->status,
 
             ]);
@@ -273,6 +275,8 @@ class ProductController extends Controller
                 'gallery' =>json_encode($gallery),
                 'description' =>$request->description,
                 'long_description' =>$request->long_description,
+                'hot_deals' =>$request->hot_deals,
+                'f_products' =>$request->f_products,
                 'status' =>$request->status,
 
             ]);
@@ -331,6 +335,26 @@ class ProductController extends Controller
     {
         $products = Product::find($id);
         $products->status = $status;
+        $products->save();
+    }
+
+
+
+
+    public function hotDeals($id, $hot_deals)
+    {
+        $products = Product::find($id);
+        $products->hot_deals = $hot_deals;
+        $products->save();
+    }
+
+
+
+
+    public function f_products($id, $f_products)
+    {
+        $products = Product::find($id);
+        $products->f_products = $f_products;
         $products->save();
     }
 

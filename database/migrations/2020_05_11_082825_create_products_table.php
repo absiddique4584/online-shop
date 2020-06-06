@@ -35,8 +35,13 @@ class CreateProductsTable extends Migration
             $table->string('gallery')->nullable();
             $table->text('description');
             $table->longText('long_description')->nullable();
+            $table->integer('hot_deals')->nullable();
+            $table->integer('f_products')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
+
+
+            $table->foreign('brand_id')->references('id')->on('brands')->cascadeOnDelete();
         });
     }
 

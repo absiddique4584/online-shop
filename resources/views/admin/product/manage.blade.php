@@ -41,6 +41,8 @@
                                 <th>Special Price</th>
                                 <th>Special Price Date </th>
                                 <th>Quantity</th>
+                                <th>Hot Deals</th>
+                                <th>F-Products</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -57,6 +59,14 @@
                                     <td><input class="form-control special_price" data-id ="{{ $product->id }}" type="text" value="{{ $product->special_price }}"></td>
                                     <td>{{ $product->special_start .' - '. $product->special_end }}</td>
                                     <td>{{ $product->quantity }}</td>
+                                    <td>
+                                        <input type="checkbox" {{ $product->hot_deals == 1 ? 'checked':'' }} id="hotDeals" data-id="{{ $product->id }}" data-toggle="toggle" data-on="SET" data-off="UNSET"
+                                               data-size="mini">
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" {{ $product->f_products == 1 ? 'checked':'' }} id="fProducts" data-id="{{ $product->id }}" data-toggle="toggle" data-on="SHOW" data-off="HIDE"
+                                               data-size="mini">
+                                    </td>
                                     <td>
                                         <input type="checkbox" {{ $product->status === 'active' ? 'checked':'' }} id="productStatus" data-id="{{ $product->id }}" data-toggle="toggle" data-on="Active" data-off="Inactive"
                                                data-size="mini">

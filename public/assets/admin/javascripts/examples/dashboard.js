@@ -97,6 +97,52 @@ $('body').on('change', "#brandStatus", function () {
 
 });
 
+
+
+//hot deals
+$('body').on('change', "#hotDeals", function () {
+    var id = $(this).attr('data-id');
+    if (this.checked) {
+        var hot_deals = 1;
+    } else {
+        hot_deals = 0;
+    }
+    $('.loader__').show();
+    $.ajax({
+        url: "products/hot-deals/" + id + '/' + hot_deals,
+        method: 'get',
+        success: function (result) {
+            $('.loader__').hide();
+        }
+    });
+
+});
+
+
+
+
+//f_products
+$('body').on('change', "#fProducts", function () {
+    var id = $(this).attr('data-id');
+    if (this.checked) {
+        var f_products = 1;
+    } else {
+        f_products = 0;
+    }
+    $('.loader__').show();
+    $.ajax({
+        url: "products/f_products/" + id + '/' + f_products,
+        method: 'get',
+        success: function (result) {
+            $('.loader__').hide();
+        }
+    });
+
+});
+
+
+
+
 /**
  * Top Brand Status
  */

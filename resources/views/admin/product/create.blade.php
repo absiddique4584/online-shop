@@ -196,6 +196,22 @@
 
                             <!------------------>
 
+                            <!------hot_deals------->
+                            <div class="col-sm-6">
+                                <label for="hot_deals" class=" control-label">Please Inser 0 or 1 For Hot Deals (Also It Can Be Empty)</label>
+                                <input type="number" class="form-control " id="hot_deals" name="hot_deals" >
+                            </div>
+
+                            <!------------------>
+
+                            <!------f_products------->
+                            <div class="col-sm-6">
+                                <label for="f_products" class=" control-label">Please Inser 0 or 1 For Feature Products (Also It Can Be Empty)</label>
+                                <input type="number" class="form-control " id="f_products" name="f_products" >
+                            </div>
+
+                            <!------------------>
+
                             <!------Status ------->
 
                             <div style="margin-top: 18px;" class="col-md-12 text-center ">

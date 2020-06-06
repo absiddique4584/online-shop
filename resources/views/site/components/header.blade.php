@@ -172,10 +172,12 @@
                         <div class="nav-outer">
 
                             <ul class="nav navbar-nav">
+                                <li><a href="{{ route('index') }}">Home</a></li>
 
                                 @foreach($brands as $row)
-                                <li class="dropdown ">
-                                    <a href="#" >{{$row->brand_name}}</a>
+                                <li class="{{ request()->is('brand/*') ? 'active' : '' }}" >
+
+                                    <a href=" {{ route('site.brand') }} " >{{ $row->brand_name }}</a>
                                 </li>
                                 @endforeach
 

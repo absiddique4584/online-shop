@@ -8,8 +8,10 @@ Route::get('/product/{slug}', 'Site\SiteController@product')->name('product');
 Route::get('/about', 'Site\SiteController@about')->name('about');
 Route::get('/condition', 'Site\SiteController@condition')->name('condition');
 Route::get('/policy', 'Site\SiteController@policy')->name('policy');
-Route::get('category/{slug}', 'Site\SiteController@category')->name('category');
+Route::get('/category/{slug}', 'Site\SiteController@category')->name('category');
 
+#brand_wise_products
+Route::get('/brand', 'Site\SiteController@brandWiseProduct')->name('site.brand');
 #LOAD MORE CATEGORY PRODUCTS ROUTE
 Route::post('load-more-category-product', 'Site\SiteController@loadMoreCatProduct')->name('load-more-cat-product');
 
@@ -123,6 +125,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/update-selling-Price', 'Admin\ProductController@updateSellingPrice');
         Route::post('/update-special-Price', 'Admin\ProductController@updateSpecialPrice');
         Route::get('/update-status/{id}/{status}', 'Admin\ProductController@updateStatus')->name('update.status');
+        Route::get('/hot-deals/{id}/{hot_deals}', 'Admin\ProductController@hotDeals')->name('hot.deals');
+        Route::get('/f_products/{id}/{f_products}', 'Admin\ProductController@f_products')->name('feature.products');
     });
 
 

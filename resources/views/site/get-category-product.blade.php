@@ -45,7 +45,7 @@
                                 <li class="add-cart-button btn-group">
 
 
-                                    <form action="{{route('cart.add')}}" method="post" enctype="multipart/form-data">
+                                    <form action="{{route('cart.add')}}" method="post" >
                                         @csrf
                                         <input type="hidden"  name="id" value="{{$product->id}}">
                                     <button class="btn btn-primary icon"  type="submit">
