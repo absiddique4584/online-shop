@@ -1,11 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TestMail;
 
 Route::get('/', 'Site\SiteController@index')->name('index');
 Route::get('/product/{slug}', 'Site\SiteController@product')->name('product');
 Route::get('/about', 'Site\SiteController@about')->name('about');
+Route::get('/contact-us', 'Site\SiteController@contactUs')->name('contact.us');
 Route::get('/condition', 'Site\SiteController@condition')->name('condition');
 Route::get('/policy', 'Site\SiteController@policy')->name('policy');
 Route::get('/category/{slug}', 'Site\SiteController@category')->name('category');
@@ -22,7 +24,14 @@ Route::get('cart/show', 'Site\CartController@show')->name('cart.show');
 Route::post('cart/remove', 'Site\CartController@remove')->name('cart.remove');
 Route::post('cart/update', 'Site\CartController@update')->name('cart.update');
 
-
+#mail route
+Route::get('/mail', function (){
+    $details = [
+        'title'=>'This Is Mail',
+        'message'=>'lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor'
+    ];
+    Mail::to('test@gmail.com')->send(new TestMail($details));
+});
 
 #Test Route
 Route::get('load-more-data', 'LoadMoreDataController@index');

@@ -92,7 +92,7 @@
                     </div><!-- /.sidebar-module-container -->
                 </div><!-- /.sidebar -->
                 <div class='col-md-9'>
-<------------ Please Insert From Here 
+<------------ Please Insert From Here
                     <!---              <div class="search-result-container ">
                                     <div id="myTabContent" class="tab-content category-list">
                                         <div class="tab-pane active " id="grid-container">

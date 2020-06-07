@@ -200,6 +200,26 @@ class SiteController extends Controller
 
 
 
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+
+   public function contactUs(){
+       $profiles = Profile::get();
+       $abouts = About::get();
+       $brands = Brand::select('brand_name')->where('status',Brand::ACTIVE_BRAND)->where('top_brand',1)->get();
+       $conditions = Condition::get();
+       $policies = Policy::get();
+       return view('site.contact-us',compact('profiles','abouts','brands','conditions','policies'));
+   }
+
+
+
+
+
+
+
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

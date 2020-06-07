@@ -83,7 +83,7 @@
                                 <li class="first"><a href="#" title="Contact us">My Account</a></li>
                                 <li><a href="#" title="About us">Order History</a></li>
                                 <li><a href="#" title="faq">FAQ</a></li>
-                                <li><a href="#" title="Popular Searches">Specials</a></li>
+                                <li><a href="{{ route('contact.us') }}" title="Popular Searches">Contact Us</a></li>
                                 <li class="last"><a href="#" title="Where is my order?">Help Center</a></li>
                                 <li class="last"><a href="#" title="Where is my order?">Code Of Conduct</a></li>
                             </ul>
