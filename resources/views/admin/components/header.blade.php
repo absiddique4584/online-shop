@@ -156,6 +156,15 @@
                                 </ul>
                             </li>
 
+
+                            <!--Mail-->
+                            <li class="has-child-item {{ request()->is('mails','mails/*') ? 'open-item active-item':'' }} close-item">
+                                <a><i class="fa fa-mail-forward" aria-hidden="true"></i><span>Mails</span></a>
+                                <ul class="nav child-nav level-1">
+                                    <li class="{{ request()->is('mails/manage') ? 'active-item':'' }}"><a href="{{ route('mails.manage') }}">Mails Manage</a></li>
+                                </ul>
+                            </li>
+
                             <!--About Online Shop-->
                             <li class="has-child-item {{ request()->is('profiles','profiles/*') ? 'open-item active-item':'' }} close-item">
                                 <a><i class="fa fa-phone-square" aria-hidden="true"></i><span>Contact Us</span></a>

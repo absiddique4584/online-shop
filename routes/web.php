@@ -1,21 +1,22 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\TestMail;
+
 
 Route::get('/', 'Site\SiteController@index')->name('index');
 Route::get('/product/{slug}', 'Site\SiteController@product')->name('product');
 Route::get('/about', 'Site\SiteController@about')->name('about');
-Route::get('/contact-us', 'Site\SiteController@contactUs')->name('contact.us');
 Route::get('/condition', 'Site\SiteController@condition')->name('condition');
 Route::get('/policy', 'Site\SiteController@policy')->name('policy');
 Route::get('/category/{slug}', 'Site\SiteController@category')->name('category');
 
 #brand_wise_products
-Route::get('/brand', 'Site\SiteController@brandWiseProduct')->name('site.brand');
+Route::get('/brand', 'Site\SiteController@brandWiseProduct')->name('brand');
+Route::get('/brand/products/{slug}', 'Site\SiteController@brandWiseProduct2')->name('brand.products.two');
 #LOAD MORE CATEGORY PRODUCTS ROUTE
 Route::post('load-more-category-product', 'Site\SiteController@loadMoreCatProduct')->name('load-more-cat-product');
+Route::get('site/brand/{slug}', 'Site\SiteController@brandWiseProduct2')->name('site.brand');
+Route::get('site.product-detail/{slug}', 'Site\SiteController@productDetail')->name('site.product-detail');
 
 
 #cart route
@@ -24,14 +25,15 @@ Route::get('cart/show', 'Site\CartController@show')->name('cart.show');
 Route::post('cart/remove', 'Site\CartController@remove')->name('cart.remove');
 Route::post('cart/update', 'Site\CartController@update')->name('cart.update');
 
+
+
 #mail route
-Route::get('/mail', function (){
-    $details = [
-        'title'=>'This Is Mail',
-        'message'=>'lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor lorem ipsum dolor'
-    ];
-    Mail::to('test@gmail.com')->send(new TestMail($details));
-});
+
+// CONTACT US Content show route...
+Route::get('contact-us', 'Site\SiteController@contactUs')->name('site.contact-us');
+Route::post('contact-us/send-mail', 'Site\SiteController@sendMail')->name('site.contact-us.send-mail');
+
+
 
 #Test Route
 Route::get('load-more-data', 'LoadMoreDataController@index');
@@ -175,6 +177,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/edit/{id}', 'Admin\PolicyController@edit')->name('edit');
         Route::post('/update/{id}', 'Admin\PolicyController@update')->name('update');
         Route::get('/delete/{id}', 'Admin\PolicyController@delete')->name('delete');
+    });
+
+
+
+
+    Route::prefix('mails')->name('mails.')->group(function () {
+        Route::get('/manage', 'Admin\MailController@manage')->name('manage');
+        Route::get('/delete/{id}', 'Admin\MailController@destroy')->name('delete');
+
     });
 
 

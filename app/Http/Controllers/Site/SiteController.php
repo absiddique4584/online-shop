@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Mail\WelcomeMail;
 use App\Models\Condition;
 use App\Models\Product;
 use App\Models\Profile;
@@ -14,6 +15,8 @@ use App\Models\Brand;
 use App\Models\About;
 use App\Models\Policy;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Mail;
+
 
 class SiteController extends Controller
 {
@@ -88,7 +91,7 @@ class SiteController extends Controller
         $policies = Policy::get();
         $brands = Brand::select('brand_name')->where('status',Brand::ACTIVE_BRAND)->where('top_brand',1)->get();
 
-        $brand_wise_products = Brand::with('products')->get();
+        $brand_wise_products = Brand::get();
 //return $brand_wise_products;
 //exit();
         return view('site.brand-wise-product',compact('abouts','profiles','brands','conditions','policies','brand_wise_products'));
@@ -96,6 +99,57 @@ class SiteController extends Controller
     }
 
 #------------------
+#------------------
+    public function brandWiseProduct2($slug) {
+        $abouts = About::get();
+        $profiles = Profile::get();
+        $conditions = Condition::get();
+        $policies = Policy::get();
+        $brands = Brand::select('brand_name')->where('status',Brand::ACTIVE_BRAND)->where('top_brand',1)->get();
+        $brand_get= Brand::get();
+        $brand_id = Brand::where('brand_slug', $slug)->pluck('id');
+//        return $brand_id;
+        $brand = Brand::where('id', $brand_id)
+            ->where('status', Brand::ACTIVE_BRAND)
+            ->first();
+//        return $brand;
+        $brand_wise_products = Product::where('brand_id', $brand_id)->get();
+
+        return view('site.brand-products-two', compact('brand','brand_get', 'brand_wise_products','brands','policies','conditions','profiles','abouts'));
+
+    }
+
+#------------------
+#------------------
+    public function productDetail($slug) {
+        $profiles = Profile::get();
+        $conditions = Condition::get();
+        $policies = Policy::get();
+        $abouts = About::get();
+        $brands = Brand::select('brand_name')->where('status',Brand::ACTIVE_BRAND)->where('top_brand',1)->get();
+        $id = Product::where('slug',$slug)->pluck('id');
+
+        $product =  Product::where('id',$id)->where('status',Product::ACTIVE_PRODUCT)->first();
+        $relatedProducts =  Product::where('id' , '!=' , $product->id)
+            ->where('subcat_id',$product->subcat_id)
+            ->where('status',Product::ACTIVE_PRODUCT)
+            ->orderBy('id','DESC')
+            ->limit(10)
+            ->get();
+        $newProducts =  Product::where('status',Product::ACTIVE_PRODUCT)
+            ->orderBy('id','DESC')
+            ->limit(12)
+            ->get();
+        $product_detail = Product::where('id',$id)->where('status',Product::ACTIVE_PRODUCT)->first();
+        //return $product_detail->gallery;
+//        return json_decode($product_detail->gallery);
+    //exit();
+        return view('site.product-detail', compact( 'product','profiles','brands','abouts','conditions','policies','relatedProducts','newProducts','product_detail'));
+
+    }
+#------------------
+
+
 
 
 
@@ -201,19 +255,6 @@ class SiteController extends Controller
 
 
 
-    /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-
-   public function contactUs(){
-       $profiles = Profile::get();
-       $abouts = About::get();
-       $brands = Brand::select('brand_name')->where('status',Brand::ACTIVE_BRAND)->where('top_brand',1)->get();
-       $conditions = Condition::get();
-       $policies = Policy::get();
-       return view('site.contact-us',compact('profiles','abouts','brands','conditions','policies'));
-   }
-
 
 
 
@@ -247,5 +288,44 @@ class SiteController extends Controller
        $policies = Policy::get();
        return view('site.policy',compact('abouts','profiles','brands','conditions','policies'));
    }
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+
+    public function contactUs() {
+        return view('site.contact-us');
+    }
+
+    public function sendMail(Request $request) {
+        $from_email = config("mail.from['address']", $request->email);
+//        return $from_email;
+
+        $contact_us_info_detail = [
+            'name' => $request->name,
+            'email' => $from_email,
+            'subject' => $request->subject,
+            'phone' => $request->phone,
+            'message' => $request->message,
+        ];
+//        return $contact_us_info_detail;
+
+        Mail::to($request->to)->send(new WelcomeMail($contact_us_info_detail));
+
+        setMessage('success', 'Success, Your Message Has Been Sent Success. We Contact You Soon.');
+//
+        return redirect()->back();
+
+    }
 
 }

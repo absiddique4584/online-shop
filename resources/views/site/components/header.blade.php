@@ -177,7 +177,7 @@
                                 @foreach($brands as $row)
                                 <li class="{{ request()->is('brand/*') ? 'active' : '' }}" >
 
-                                    <a href=" {{ route('site.brand') }} " >{{ $row->brand_name }}</a>
+                                    <a href=" {{ route('brand') }} " >{{ $row->brand_name }}</a>
                                 </li>
                                 @endforeach
 
