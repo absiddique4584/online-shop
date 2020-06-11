@@ -25,6 +25,10 @@ Route::get('cart/show', 'Site\CartController@show')->name('cart.show');
 Route::post('cart/remove', 'Site\CartController@remove')->name('cart.remove');
 Route::post('cart/update', 'Site\CartController@update')->name('cart.update');
 
+#CHECKOUT ROUTE
+Route::get('checkout','Site\CheckoutController@index')->name('site.checkout');
+Route::post('customer/register','Site\CheckoutController@register')->name('customer.register');
+
 
 
 #mail route
