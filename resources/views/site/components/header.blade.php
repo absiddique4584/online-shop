@@ -114,7 +114,9 @@
                                     <div class="row">
                                         <div class="col-xs-4">
                                             <div class="image">
+                                                <a href="{{ route('product',$item->attributes->slug) }}">
                                                 <img src="{{ asset( 'uploads/product'.$item->attributes->thumbnail ) }}" alt="">
+                                                </a>
                                             </div>
                                         </div>
                                         <div class="col-xs-7">

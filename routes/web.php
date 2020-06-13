@@ -27,6 +27,10 @@ Route::post('cart/update', 'Site\CartController@update')->name('cart.update');
 
 #CHECKOUT ROUTE
 Route::get('checkout','Site\CheckoutController@index')->name('site.checkout');
+Route::get('checkout/shipping','Site\CheckoutController@shipping')->name('shipping');
+Route::post('checkout/shipping/info','Site\CheckoutController@shippingInfo')->name('checkout.shipping');
+Route::get('checkout/payment','Site\CheckoutController@payment')->name('checkout.payment');
+Route::post('order','Site\CheckoutController@order')->name('order');
 Route::post('customer/register','Site\CheckoutController@register')->name('customer.register');
 
 
