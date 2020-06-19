@@ -20,17 +20,17 @@
 
                     <div class="form-group">
                         <label class="info-title" for="name">Full Name <span>*</span></label>
-                        <input type="text" name="name" class="form-control unicase-form-control text-input" id="name" value=" {{ $customer->name }}" placeholder="Name" required  >
+                        <input type="text" name="name" class="form-control unicase-form-control text-input" id="name"  placeholder="Name" required  >
                     </div>
 
                     <div class="form-group">
                         <label class="info-title" for="email">Email Address <span>*</span></label>
-                        <input type="email" name="email" class="form-control unicase-form-control text-input" id="email" value=" {{ $customer->email }}"  placeholder="Write Your Email" required >
+                        <input type="email" name="email" class="form-control unicase-form-control text-input" id="email"  required   placeholder="Write Your Email" >
                     </div>
 
                     <div class="form-group">
                         <label class="info-title" for="phone">Phone Number <span>*</span></label>
-                        <input type="text" name="phone" class="form-control unicase-form-control text-input" id="phone" pattern="01[3|5|6|7|8|9][0-9]{8}" value="{{ $customer->phone }}" required  placeholder="Write Your Mobile No.">
+                        <input type="text" name="phone" class="form-control unicase-form-control text-input" id="phone" pattern="01[3|5|6|7|8|9][0-9]{8}"  required  placeholder="Write Your Mobile No.">
                     </div>
 
                     <div class="form-group">

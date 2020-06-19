@@ -156,10 +156,19 @@
                                 </ul>
                             </li>
 
+                            <!--ORDERS-->
+                            <li class="has-child-item {{ request()->is('checkout/orders/manage','checkout/customers/manage') ? 'open-item active-item':'' }} close-item">
+                                <a><i class="fa fa-mail-forward" aria-hidden="true"></i><span>Checkout</span></a>
+                                <ul class="nav child-nav level-1">
+                                    <li class="{{ request()->is('checkout/orders/manage') ? 'active-item':'' }}"><a href="{{ route('checkout.orders.manage') }}">Manage Orders </a></li>
+                                    <li class="{{ request()->is('checkout/customers/manage') ? 'active-item':'' }}"><a href="{{ route('checkout.customers.manage') }}">Manage Customers </a></li>
+                                </ul>
+                            </li>
+
 
                             <!--Mail-->
                             <li class="has-child-item {{ request()->is('mails','mails/*') ? 'open-item active-item':'' }} close-item">
-                                <a><i class="fa fa-mail-forward" aria-hidden="true"></i><span>Mails</span></a>
+                                <a><i class="fa fa-envelope" aria-hidden="true"></i><span>Mails</span></a>
                                 <ul class="nav child-nav level-1">
                                     <li class="{{ request()->is('mails/manage') ? 'active-item':'' }}"><a href="{{ route('mails.manage') }}">Mails Manage</a></li>
                                 </ul>

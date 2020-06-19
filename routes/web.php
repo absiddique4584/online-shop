@@ -25,13 +25,21 @@ Route::get('cart/show', 'Site\CartController@show')->name('cart.show');
 Route::post('cart/remove', 'Site\CartController@remove')->name('cart.remove');
 Route::post('cart/update', 'Site\CartController@update')->name('cart.update');
 
+
+
 #CHECKOUT ROUTE
 Route::get('checkout','Site\CheckoutController@index')->name('site.checkout');
 Route::get('checkout/shipping','Site\CheckoutController@shipping')->name('shipping');
 Route::post('checkout/shipping/info','Site\CheckoutController@shippingInfo')->name('checkout.shipping');
 Route::get('checkout/payment','Site\CheckoutController@payment')->name('checkout.payment');
 Route::post('order','Site\CheckoutController@order')->name('order');
+
+
+
+#customer login and register route
 Route::post('customer/register','Site\CheckoutController@register')->name('customer.register');
+Route::post('customer/login','Site\CheckoutController@login')->name('customer.login');
+Route::post('customer/logout','Site\CheckoutController@logout')->name('customer.logout');
 
 
 
@@ -41,6 +49,13 @@ Route::post('customer/register','Site\CheckoutController@register')->name('custo
 Route::get('contact-us', 'Site\SiteController@contactUs')->name('site.contact-us');
 Route::post('contact-us/send-mail', 'Site\SiteController@sendMail')->name('site.contact-us.send-mail');
 
+
+
+#SITE LOGIN $ REGISTRATION ROUTE
+Route::get('/registration', 'Site\SitelogController@registration')->name('site.registration');
+Route::post('customer/registration','Site\SitelogController@register')->name('customer.registration');
+Route::post('site/customer/login','Site\SitelogController@siteloggedin')->name('customer.site.loggedin');
+Route::get('site/customer/loggedin','Site\SitelogController@loggedin')->name('customer.loggedin');
 
 
 #Test Route
@@ -148,6 +163,20 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/f_products/{id}/{f_products}', 'Admin\ProductController@f_products')->name('feature.products');
     });
 
+
+
+
+    /**
+     * Checkout Route/orders route
+     */
+    Route::prefix('checkout')->name('checkout.')->group(function () {
+        Route::get('/orders/manage', 'Admin\CheckoutadminController@orders')->name('orders.manage');
+        Route::get('/orders/edit/{id}', 'Admin\CheckoutadminController@edit')->name('orders.edit');
+        Route::put('orders/update/{id}', 'Admin\CheckoutadminController@update')->name('orders.update');
+        Route::get('/delete/{id}', 'Admin\CheckoutadminController@delete')->name('orders.delete');
+        Route::get('/customers/manage', 'Admin\CheckoutadminController@customerInfo')->name('customers.manage');
+        Route::get('/customers/delete/{id}', 'Admin\CheckoutadminController@customerDelete')->name('customers.delete');
+    });
 
 
 

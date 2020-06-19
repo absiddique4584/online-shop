@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use App\Mail\WelcomeMail;
 use App\Models\Condition;
+use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Profile;
 use Illuminate\Http\Request;
@@ -16,7 +17,8 @@ use App\Models\About;
 use App\Models\Policy;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Mail;
-
+use Session;
+use Exception;
 
 class SiteController extends Controller
 {
@@ -26,11 +28,8 @@ class SiteController extends Controller
 
 
 
-
-
     public function index(){
        $abouts = About::get();
-        $brands = Brand::select('brand_name')->where('status',Brand::ACTIVE_BRAND)->where('top_brand',1)->get();
        $sliders = Slider::where('start', '<=', date('Y-m-d h:i:s'))
             ->where('end', '>=', date('Y-m-d h:i:s'))
            ->where('status','active')
@@ -61,10 +60,10 @@ class SiteController extends Controller
             ->limit(24)
             ->get();
 
+          //  $customer = Customer::find( Session::get('customerId'))->select('name')->first();
 
 
-
-       return view('site.index',compact('sliders','categories','brands','profiles','abouts','conditions','policies','s_offers','s_deals','hot_deals','f_products','n_arrivals'));
+        return view('site.index',compact('sliders','categories','profiles','abouts','conditions','policies','s_offers','s_deals','hot_deals','f_products','n_arrivals'));
    }
 
 
@@ -89,12 +88,10 @@ class SiteController extends Controller
         $profiles = Profile::get();
         $conditions = Condition::get();
         $policies = Policy::get();
-        $brands = Brand::select('brand_name')->where('status',Brand::ACTIVE_BRAND)->where('top_brand',1)->get();
-
         $brand_wise_products = Brand::get();
 //return $brand_wise_products;
 //exit();
-        return view('site.brand-wise-product',compact('abouts','profiles','brands','conditions','policies','brand_wise_products'));
+        return view('site.brand-wise-product',compact('abouts','profiles','conditions','policies','brand_wise_products'));
 
     }
 
@@ -105,7 +102,6 @@ class SiteController extends Controller
         $profiles = Profile::get();
         $conditions = Condition::get();
         $policies = Policy::get();
-        $brands = Brand::select('brand_name')->where('status',Brand::ACTIVE_BRAND)->where('top_brand',1)->get();
         $brand_get= Brand::get();
         $brand_id = Brand::where('brand_slug', $slug)->pluck('id');
 //        return $brand_id;
@@ -115,7 +111,7 @@ class SiteController extends Controller
 //        return $brand;
         $brand_wise_products = Product::where('brand_id', $brand_id)->get();
 
-        return view('site.brand-products-two', compact('brand','brand_get', 'brand_wise_products','brands','policies','conditions','profiles','abouts'));
+        return view('site.brand-products-two', compact('brand','brand_get', 'brand_wise_products','policies','conditions','profiles','abouts'));
 
     }
 
@@ -126,7 +122,6 @@ class SiteController extends Controller
         $conditions = Condition::get();
         $policies = Policy::get();
         $abouts = About::get();
-        $brands = Brand::select('brand_name')->where('status',Brand::ACTIVE_BRAND)->where('top_brand',1)->get();
         $id = Product::where('slug',$slug)->pluck('id');
 
         $product =  Product::where('id',$id)->where('status',Product::ACTIVE_PRODUCT)->first();
@@ -144,7 +139,7 @@ class SiteController extends Controller
         //return $product_detail->gallery;
 //        return json_decode($product_detail->gallery);
     //exit();
-        return view('site.product-detail', compact( 'product','profiles','brands','abouts','conditions','policies','relatedProducts','newProducts','product_detail'));
+        return view('site.product-detail', compact( 'product','profiles','abouts','conditions','policies','relatedProducts','newProducts','product_detail'));
 
     }
 #------------------
@@ -164,10 +159,9 @@ class SiteController extends Controller
        $abouts = About::get();
        #$products =  Product::where('subcat_id',$id)->where('status',Product::ACTIVE_PRODUCT)->get();
        $profiles = Profile::get();
-       $brands = Brand::select('brand_name')->where('status',Brand::ACTIVE_BRAND)->where('top_brand',1)->get();
        $conditions = Condition::get();
        $policies = Policy::get();
-      return view('site.category',compact('profiles','abouts','brands','conditions','policies','slug'));
+      return view('site.category',compact('profiles','abouts','conditions','policies','slug'));
 
    }
 
@@ -185,7 +179,6 @@ class SiteController extends Controller
         $profiles = Profile::get();
         $abouts = About::get();
         $conditions = Condition::get();
-        $brands = Brand::select('brand_name')->where('status',Brand::ACTIVE_BRAND)->where('top_brand',1)->get();
         $policies = Policy::get();
 
         $id       = SubCategory::where('slug', $request->slug)->pluck('id');
@@ -197,7 +190,7 @@ class SiteController extends Controller
             }
         }
 
-        return view('site.get-category-product',compact('profiles','abouts','brands','conditions','policies','products'));
+        return view('site.get-category-product',compact('profiles','abouts','conditions','policies','products'));
     }
 
 
@@ -213,7 +206,6 @@ class SiteController extends Controller
      */
    public function product($slug){
        $abouts = About::get();
-       $brands = Brand::select('brand_name')->where('status',Brand::ACTIVE_BRAND)->where('top_brand',1)->get();
        $id = Product::where('slug',$slug)->pluck('id');
        $product =  Product::where('id',$id)->where('status',Product::ACTIVE_PRODUCT)->first();
        $relatedProducts =  Product::where('id' , '!=' , $product->id)
@@ -229,7 +221,7 @@ class SiteController extends Controller
        $profiles = Profile::get();
        $conditions = Condition::get();
        $policies = Policy::get();
-      return view('site.product',compact('product','profiles','brands','abouts','conditions','policies','relatedProducts','newProducts'));
+      return view('site.product',compact('product','profiles','abouts','conditions','policies','relatedProducts','newProducts'));
    }
 
 
@@ -244,10 +236,9 @@ class SiteController extends Controller
    public function about(){
        $profiles = Profile::get();
        $abouts = About::get();
-       $brands = Brand::select('brand_name')->where('status',Brand::ACTIVE_BRAND)->where('top_brand',1)->get();
        $conditions = Condition::get();
        $policies = Policy::get();
-       return view('site.about',compact('abouts','profiles','conditions','brands','policies'));
+       return view('site.about',compact('abouts','profiles','conditions','policies'));
    }
 
 
@@ -267,10 +258,9 @@ class SiteController extends Controller
    public function condition(){
        $abouts = About::get();
        $profiles = Profile::get();
-       $brands = Brand::select('brand_name')->where('status',Brand::ACTIVE_BRAND)->where('top_brand',1)->get();
        $conditions = Condition::get();
        $policies = Policy::get();
-       return view('site.condition',compact('abouts','profiles','brands','conditions','policies'));
+       return view('site.condition',compact('abouts','profiles','conditions','policies'));
    }
 
 
@@ -282,11 +272,10 @@ class SiteController extends Controller
      */
    public function policy(){
        $abouts = About::get();
-       $brands = Brand::select('brand_name')->where('status',Brand::ACTIVE_BRAND)->where('top_brand',1)->get();
        $profiles = Profile::get();
        $conditions = Condition::get();
        $policies = Policy::get();
-       return view('site.policy',compact('abouts','profiles','brands','conditions','policies'));
+       return view('site.policy',compact('abouts','profiles','conditions','policies'));
    }
 
 

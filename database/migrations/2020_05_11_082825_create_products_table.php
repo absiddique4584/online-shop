@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('subcat_id');
             $table->unsignedBigInteger('brand_id');
             $table->string('name');
-            $table->string('slug')->unique();
+            $table->string('slug',191)->unique();
             $table->string('model')->nullable();
             $table->decimal('buying_price', 10, 2);
             $table->decimal('selling_price', 10, 2);

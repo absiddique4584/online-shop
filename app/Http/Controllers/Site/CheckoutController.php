@@ -26,24 +26,42 @@ class CheckoutController extends Controller
 
 
 
-    public function __construct(){
-        $brands = Brand::where('status',Brand::ACTIVE_BRAND)->where('top_brand',1)->get();
-        View::share('brands',$brands);
-    }
 
 
 
 
 
-
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     */
     public function index(){
         $profiles = Profile::get();
         $conditions = Condition::get();
         $policies = Policy::get();
         $abouts = About::get();
-        return view('checkout.index',compact('profiles','conditions','policies','abouts'));
+
+        if (\Cart::getTotalQuantity() < 1){
+            //abort('404');
+            return redirect('/');
+        }else{
+            if (Session::get('customerId')){
+                return redirect('checkout/shipping');
+            }else{
+                return view('checkout.index',compact('profiles','conditions','policies','abouts'));
+            }
+        }
     }
 
+
+
+
+
+
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function register(Request $request){
      $request->validate([
         'name' => 'required|min:5|max:30',
@@ -77,15 +95,34 @@ class CheckoutController extends Controller
 
 
 
-    public function shipping(){
-        $profiles = Profile::get();
-        $conditions = Condition::get();
-        $policies = Policy::get();
-        $abouts = About::get();
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
 
-        $customer = Customer::find( Session::get('customerId'))->select('name','email','phone')->first();
+    public function login(Request $request){
+       //return $request;
 
-        return view('checkout.shipping',compact('profiles','conditions','policies','abouts','customer'));
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required|min:6',
+        ]);
+
+        $customer = Customer::where('email', $request->email)->select('id','email','password')->first();
+       // return $customer;
+
+        if ($customer){
+          if ( password_verify($request->password,$customer->password)){
+              Session::put('customerId',$customer->id);
+              return redirect('checkout/shipping');
+          }else{
+              setMessage('danger','These credentials Password do not match our records.');
+              return redirect()->back();
+          }
+        }else{
+            setMessage('danger','These credentials do not match our records.');
+            return redirect()->back();
+        }
     }
 
 
@@ -96,6 +133,54 @@ class CheckoutController extends Controller
 
 
 
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function logout(){
+        Session()->forget('customerId');
+        return redirect()->back();
+    }
+
+
+
+
+
+
+
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function shipping(){
+
+        if (!Session::get('customerId')){
+            //abort('404');
+            return redirect('/');
+        }
+
+        $profiles = Profile::get();
+        $conditions = Condition::get();
+        $policies = Policy::get();
+        $abouts = About::get();
+
+        //$customer = Customer::find( Session::get('customerId'))->select('name','email','phone')->first();
+          //return $customer;
+         //exit();
+        return view('checkout.shipping',compact('profiles','conditions','policies','abouts'));
+    }
+
+
+
+
+
+
+
+
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public  function shippingInfo(Request $request){
 
 
@@ -122,19 +207,44 @@ class CheckoutController extends Controller
 
     }
 
+
+
+
+
+
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function payment(){
         $profiles = Profile::get();
         $conditions = Condition::get();
         $policies = Policy::get();
         $abouts = About::get();
+
+        if (!Session::get('customerId')){
+            //abort('404');
+            return redirect('/');
+        }
+
         return view('checkout.payment',compact('profiles','conditions','policies','abouts'));
     }
 
 
 
 
+
+
+
+
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function order(Request $request)
     {
+
 
         $profiles = Profile::get();
         $conditions = Condition::get();
@@ -161,6 +271,11 @@ class CheckoutController extends Controller
 
 
 
+
+
+    /**
+     * @return mixed
+     */
     private function insertOrder(){
         $order = Order::create([
             "customer_id" => Session::get('customerId'),
@@ -174,6 +289,11 @@ class CheckoutController extends Controller
 
 
 
+
+
+    /**
+     * @param $orderId
+     */
     private function insertorderInfo($orderId){
 
         foreach (\Cart::getContent() as $item){
@@ -187,4 +307,7 @@ class CheckoutController extends Controller
         ]);
         }
     }
+
+
+
 }

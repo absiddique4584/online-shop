@@ -42,3 +42,22 @@ function setMessage($type, $message){
    session()->flash('type',$type);
     session()->flash('message',$message);
 }
+
+
+
+
+/**
+ * @param $status
+ * @return string
+ */
+   function randomColor($status)
+   {
+      $color = [
+           "pending" => "x-danger",
+           "success" => "x-success",
+           "return"  => "x-warning",
+           "shipped" => "x-info",
+      ];
+
+    return $color[$status];
+   }

@@ -18,13 +18,6 @@ use Illuminate\Support\Facades\View;
 class CartController extends Controller
 {
 
-    public function __construct()
-    {
-        $brands = Brand::where('status', Brand::ACTIVE_BRAND)->where('top_brand', '1')->get();
-
-        View::share('brands', $brands);
-    }
-
 
 
 
