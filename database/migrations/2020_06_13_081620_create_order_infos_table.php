@@ -22,6 +22,7 @@ class CreateOrderInfosTable extends Migration
             $table->string('product_qty',3);
             $table->timestamps();
 
+            //$table->foreign('order_id')->references('id')->on('orders')->cascadeOnDelete();
             $table->foreign('order_id')->references('id')->on('orders')->cascadeOnDelete();
         });
     }

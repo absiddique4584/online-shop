@@ -172,13 +172,18 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('checkout')->name('checkout.')->group(function () {
         Route::get('/orders/manage', 'Admin\CheckoutadminController@orders')->name('orders.manage');
         Route::get('/orders/edit/{id}', 'Admin\CheckoutadminController@edit')->name('orders.edit');
-        Route::put('orders/update/{id}', 'Admin\CheckoutadminController@update')->name('orders.update');
+        Route::post('orders/update', 'Admin\CheckoutadminController@update')->name('orders.update');
         Route::get('/delete/{id}', 'Admin\CheckoutadminController@delete')->name('orders.delete');
+        Route::get('/orders/view/{id}', 'Admin\CheckoutadminController@view')->name('orders.view');
+        Route::get('/orders/invoice/{id}', 'Admin\CheckoutadminController@invoice')->name('orders.invoice');
+
         Route::get('/customers/manage', 'Admin\CheckoutadminController@customerInfo')->name('customers.manage');
         Route::get('/customers/delete/{id}', 'Admin\CheckoutadminController@customerDelete')->name('customers.delete');
+
+        Route::post('orders/update-status', 'Admin\CheckoutadminController@updateStatus');
     });
 
-
+    Route::get('print-invoice/{id}','Admin\CheckoutadminController@printInvoice')->name('print-invoice');
 
     /**
      * About Route

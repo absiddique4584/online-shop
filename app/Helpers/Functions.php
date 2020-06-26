@@ -61,3 +61,16 @@ function setMessage($type, $message){
 
     return $color[$status];
    }
+
+
+   function orderStatus()
+   {
+       $status = [
+           "pending",
+           "success",
+           "return",
+           "shipped",
+      ];
+
+    return $status;
+   }

@@ -19,6 +19,7 @@ class CreateShippingsTable extends Migration
             $table->string('email',190);
             $table->string('phone',11);
             $table->string('address',255);
+            $table->decimal('shipping_charge',10,2)->default(60);
             $table->timestamps();
         });
     }

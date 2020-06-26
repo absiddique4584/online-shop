@@ -21,7 +21,12 @@ class DatabaseSeeder extends Seeder
              AboutTableSeeder::class,
              ProfileTableSeeder::class,
              ConditionTableSeeder::class,
-             PolicyTableSeeder::class
+             PolicyTableSeeder::class,
+             CustomerTableSeeder::class,
+             ShippingTableSeeder::class,
+             OrderTableSeeder::class,
+             PaymentTableSeeder::class,
+             OrderinfoTableSeeder::class,
          ]);
     }
 }

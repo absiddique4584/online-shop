@@ -157,7 +157,7 @@
                             </li>
 
                             <!--ORDERS-->
-                            <li class="has-child-item {{ request()->is('checkout/orders/manage','checkout/customers/manage') ? 'open-item active-item':'' }} close-item">
+                            <li class="has-child-item {{ request()->is('checkout/orders/invoice/*','checkout/orders/view/*','checkout/orders/manage','checkout/customers/manage') ? 'open-item active-item':'' }} close-item">
                                 <a><i class="fa fa-mail-forward" aria-hidden="true"></i><span>Checkout</span></a>
                                 <ul class="nav child-nav level-1">
                                     <li class="{{ request()->is('checkout/orders/manage') ? 'active-item':'' }}"><a href="{{ route('checkout.orders.manage') }}">Manage Orders </a></li>

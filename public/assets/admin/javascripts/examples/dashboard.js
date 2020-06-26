@@ -419,6 +419,51 @@ $('body').on('click', ".fileClick", function () {
 
 
 
+/**
+ * view order and payment status
+ * edit order section
+ */
+$('body').on('click', ".update-order", function () {
+
+	let id = $(this).data('id');
+	let order = $(this).data('order-status');
+	let payment = $(this).data('payment-status');
+    //console.log(id);
+    //console.log(order);
+    //console.log(payment);
+
+    $("#order_id").val(id);
+    $("#order_status").val(order);
+    $("#payment_status").val(payment);
+
+});
+
+
+$('body').on('change', "#order_status", function () {
+	let id = $(this).data('id');
+	let status = $(this).val();
+    //console.log(id);
+
+    $('.loader__').show();
+    $.ajax({
+        data:{ id: id, status: status },
+        url: site_url + "checkout/orders/update-status" ,
+        method: 'post',
+        beforeSend: function (request) {
+            return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
+        },
+        success: function (result) {
+            $('.loader__').hide();
+        }
+    });
+    $("#order_id").val(id);
+
+
+});
+
+
+
+
 
 /**
  * multiple file

@@ -14,9 +14,9 @@
         </div>
     </div><br/>
     <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
-    <div class="row animated fadeInRight">
+    <div class="row ">
         <div class="col-md-12 ">
-
+            <br>
             @includeIf('message.message')
 
             <div class="panel b-primary bt-md">
@@ -52,9 +52,9 @@
                                     <td><span class="text-capitalize badge badge-xs {{ randomColor($order->p_status) }}">{{ $order->p_status }}</span></td>
                                     <td>{{ $order->p_type }}</td>
                                     <td>
-                                        <a href="" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></a>
-                                        <a href="" class="btn btn-success btn-xs"><i class="fa fa-info"></i></a>
-                                        <a href="{{ route('checkout.orders.edit', base64_encode($order->id)) }}" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i></a>
+                                        <a href="{{ route('checkout.orders.view', base64_encode($order->id)) }}" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></a>
+                                        <a href="{{ route('checkout.orders.invoice', base64_encode($order->id)) }}" class="btn btn-success btn-xs"><i class="fa fa-download"></i></a>
+                                        <a class="btn btn-warning btn-xs update-order" data-id="{{ $order->id }}" data-order-status="{{ $order->status }}" data-payment-status="{{ $order->p_status }}" data-toggle="modal" data-target="#updateOrder"><i class="fa fa-pencil"></i></a>
                                         <a href="{{ route('checkout.orders.delete', base64_encode($order->id)) }}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure delete this order?')" ><i class="fa fa-trash-o"></i></a>
                                     </td>
                                     </td>
@@ -64,6 +64,50 @@
                         </table>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="updateOrder" tabindex="-1" role="dialog" aria-labelledby="modal-default-label">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="{{ route('checkout.orders.update') }}" method="POST" class="form-horizontal">
+                    @csrf
+                    <input type="hidden" name="id" id="order_id">
+                <div class="modal-header state modal-primary">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modal-default-label">Edit Order And Payment Status</h4>
+                </div>
+                <div class="modal-body">
+
+
+                    <div class="form-group">
+                        <label for="order_status" class="col-sm-4 control-label">Order Status</label>
+                        <div class="col-sm-5">
+                            <select name="order_status" id="order_status" class="form-control">
+                                @foreach(orderStatus() as $status)
+                                <option value="{{ $status }}">{{ ucwords($status) }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="payment_status" class="col-sm-4 control-label">Payment Status</label>
+                        <div class="col-sm-5">
+                            <select name="payment_status" id="payment_status" class="form-control">
+                                <option value="pending">Pending</option>
+                                <option value="success">Success</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary" >Update</button>
+                </div>
+                </form>
             </div>
         </div>
     </div>
